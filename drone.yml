@@ -1,0 +1,16 @@
+kind: pipeline
+type: exec 
+name: default
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+  - name: build_and_run
+    commands:
+      - cd /opt/App/
+      - rm -rf frontpage
+      - git clone http://pi:4000/tkitano/frontpage.git
+      - cd frontpage
+      - ./build_run_docker.sh

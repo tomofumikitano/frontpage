@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Front Page</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+</head>
+
+<body>
+  <section class="section">
+    <div class="container">
+
+      <div class="columns is-multiline">
+
+        {% for feed in feeds %}
+        <div class="column is-half-tablet is-half-desktop is-half-widescreen is-one-quarter-fullhd">
+          <div class="title">
+            <a href="{{ feed.home_url }}" target="_blank">{{ feed.title }}</a>
+          </div>
+
+					{% for a in feed.article_set.all|slice:":10" %}
+          <div style="display: inline-block;">
+            {{ a.date_published | date:"M, j" }}
+          </div>
+          <div style="display: inline-block;">
+            <a href="{{ a.url }}" target="_blank">{{ a.title }}</a>
+          </div>
+          <br>
+					{% endfor %}
+
+        </div>
+        {% endfor %} 
+      </div>
+
+    </div>
+  </section>
+
+</body>
+
+</html>

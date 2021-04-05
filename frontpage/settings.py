@@ -25,12 +25,13 @@ SECRET_KEY = '*^d*g3w@%2)u#-tuf1&z3q+3!9r1ud1kv-w0((6z$ge#-))ymj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '192.168.2.100']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'feeds.apps.FeedsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 

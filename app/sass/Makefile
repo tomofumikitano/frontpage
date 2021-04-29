@@ -1,4 +1,7 @@
 build:
 	clear
-	sass --sourcemap=none sass/mystyles.scss:css/mystyles.css
-	cp css/mystyles.css ../../app/feeds/static/feeds/
+	sass --sourcemap=none ./mystyles.scss:../../app/feeds/static/feeds/css/style.css
+
+watch:
+	clear
+	sass --watch ./mystyles.scss:../../app/feeds/static/feeds/css/style.css

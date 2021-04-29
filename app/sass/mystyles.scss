@@ -1,0 +1,155 @@
+@charset "utf-8";
+
+// Set your brand colors
+// $purple: #8A4D76;
+// $pink: #FA7C91;
+// $brown: #757763;
+// $beige-light: #D0D1CD;
+// $beige-lighter: #EFF0EB;
+
+// Update Bulma's global variables
+// $family-sans-serif: "Nunito", sans-serif;
+// $grey-dark: $brown;
+// $grey-light: $beige-light;
+// $primary: $purple;
+// $link: $pink;
+// $widescreen-enabled: false;
+// $fullhd-enabled: false;
+
+// Update some of Bulma's component variables
+// $body-background-color: $beige-lighter;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+$gap: 5px;
+
+$table-cell-border: 0px;
+$table-cell-border-width: 0 0 0px;
+$table-cell-padding: 0em 0em;
+
+
+// https://bulma.io/documentation/customize/with-sass-cli/
+// @import "bulma-0.9.2/bulma.sass";
+// Or, import only what you need from Bulma
+@import "bulma-0.9.2/sass/base/_all.sass";
+@import "bulma-0.9.2/sass/utilities/_all.sass";
+@import "bulma-0.9.2/sass/elements/container.sass";
+@import "bulma-0.9.2/sass/elements/table.sass";
+
+
+:root {
+    --primary-color: #302AE6;
+    --secondary-color: #536390;
+    --font-color: #424242;
+    --bg-color: #fff;
+    --heading-color: #292922;
+}
+
+[data-theme="dark"] {
+    --primary-color: #9A97F3;
+    --secondary-color: #818cab;
+    --font-color: #e1e1ff;
+    --bg-color: #161625;
+    --heading-color: #818cab;
+}
+
+body {
+    font-size: 95%;
+    background-color: var(--bg-color);
+}
+
+a {
+    color: var(--primary-color);
+}
+
+div.container {
+    width: 100%;
+    background-color: var(--bg-color);
+}
+
+table {
+    margin: 0 auto;
+}
+
+.table {
+    background-color: var(--bg-color);
+}
+
+td.date-published {
+    width: 15%;
+    font-size: 80%;
+    vertical-align: middle;
+		color: var(--font-color);
+}
+
+.right {
+    float: right;
+}
+
+.center {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/*Simple css to style it like a toggle switch*/
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    em {
+        margin-left: 10px;
+        font-size: 1rem;
+    }
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 30px;
+    width: 50px;
+    position: relative;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    cursor: pointer;
+    position: absolute;
+    top: 1px;
+    bottom: 1px;
+    left: 0;
+    right: 0;
+    transition: .4s;
+}
+
+/* スイッチのボール */
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #66bb6a;
+}
+
+/* ボールをクリックした時のX軸(右側)への移動量 */
+input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+.slider.round {
+    border-radius: 30px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}

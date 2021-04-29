@@ -11,11 +11,10 @@
 			<div class="column"> </div>
 			<div class="column is-half">
 				{% if feeds %}
-				<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+				<table class="table is-fullwidth"> 
 					<thead>
 						<tr>
 							<th class="feed_title">Title</th>
-							<th class="feed_url">Feed URL</th>
 							<th class="order">Order</th>
 						</tr>
 					</thead>
@@ -23,7 +22,6 @@
 						{% for feed in feeds %}
 						<tr>
 							<td class="feed_title"><a href="/feeds/edit/{{ feed.id }}" target="_blank">{{ feed.title }}</a></td>
-							<td class="feed_url">{{ feed.url }}</td>
 							<td class="feed_url">{{ feed.order }}</td>
 						</tr>
 						{% endfor %}

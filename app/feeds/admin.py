@@ -1,6 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
 from .models import Feed
 
-admin.site.register(Feed)
+class FeedAdmin(admin.ModelAdmin):
+    # fields = ['title', 'website_url']
+    list_display = ('order', 'title', 'url', 'website_url')
+
+admin.site.register(Feed, FeedAdmin)

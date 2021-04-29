@@ -1,0 +1,47 @@
+{% extends 'feeds/_base.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="columns">
+  <div class="column"></div>
+  <div class="column is-one-third">
+
+		<form role="form" method="POST" class="">
+
+			{% csrf_token %}
+
+			<div class="field">
+				<p class="control has-icons-left has-icons-right">
+				<input name="username" class="input" type="text" placeholder="username">
+				<span class="icon is-small is-left"> <i class="fas fa-user"></i> </span>
+				</p>
+			</div>
+
+			<div class="field">
+				<p class="control has-icons-left">
+				<input name="password" class="input" type="password" placeholder="password">
+				<span class="icon is-small is-left"> <i class="fas fa-lock"></i> </span>
+				</p>
+			</div>
+
+			<div class="field">
+				<p class="control">
+				<button class="button is-link">Login</button>
+				</p>
+			</div>
+
+		</form>
+
+	</div>
+  <div class="column"></div>
+</div>
+
+<br>
+
+<div class="content has-text-centered">
+	If you don't have an account, <a href="/register" target="blank"><strong>register</strong></a> instead.
+</div>
+
+{% endblock %}

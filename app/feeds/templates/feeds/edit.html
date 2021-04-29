@@ -1,0 +1,81 @@
+{% extends 'feeds/_base.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="columns">
+	<div class="column"></div>
+	<div class="column is-one-third">
+
+		<form role="form" method="POST" class="">
+			{% csrf_token %}
+
+			Feed URL
+			<div class="field">
+				<p class="control has-icons-left">
+				<input name="url" class="input" type="text" placeholder="feed url" value="{{ feed.url }}">
+				<span class="icon is-small is-left">
+					<i class="fas fa-rss"></i>
+				</span>
+				</p>
+			</div>
+
+			Website Title (Optional)
+			<div class="field">
+				<p class="control has-icons-left">
+				<input name="title" class="input" type="text" placeholder="website title" value="{{ feed.title }}">
+				<span class="icon is-small is-left"> <i class="fas fa-heading"></i> </span>
+				</p>
+			</div>
+
+			Website URL (Optional)
+			<div class="field">
+				<p class="control has-icons-left">
+				<input name="website_url" class="input" type="text" placeholder="website url" value="{{ feed.website_url }}">
+				<span class="icon is-small is-left"> <i class="fas fa-newspaper"></i> </span>
+				</p>
+			</div>
+
+			Order (Optional)
+			<div class="field">
+				<p class="control has-icons-left">
+				<input name="order" class="input" type="number" min="1" max="5" placeholder="order" value="{{ feed.order }}">
+				<span class="icon is-small is-left"> <i class="fas fa-newspaper"></i> </span>
+				</p>
+			</div>
+
+			<div class="field">
+				<button id="saveBtn" class="button is-link">Save</button>
+			</div>
+
+		</form>
+
+		{% if feed %}
+			<button id="delete" class="button is-danger">Delete</button>
+		{% endif %}
+
+		<div id="modal" class="modal">
+			<div class="modal-background"></div>
+			<div class="modal-content center">
+				<div class="box">
+					<p> <strong>Warning</strong> </p>
+					<span>
+					<form action="/feeds/delete/{{ feed.id }}" method="POST">
+						{% csrf_token %}
+						Are you sure you want to delete this feed?:
+						<button id="do-it" class="button is-danger is-small">Do it</button>
+					</form>
+					</span>
+				</div>
+			</div>
+			<button class="modal-close is-large" aria-label="close"></button>
+		</div>
+
+	</div>
+	<div class="column"></div>
+</div>
+
+{% load static %}
+<script src="{% static 'feeds/js/modal.js' %}"></script>
+{% endblock %}

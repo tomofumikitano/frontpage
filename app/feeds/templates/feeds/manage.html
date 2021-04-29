@@ -1,0 +1,45 @@
+{% extends "feeds/_base.html" %}
+
+{% block title %}Front Page{% endblock %}
+
+{% block content %}
+<section class="section">
+
+	<div class="container">
+
+		<div class="columns">
+			<div class="column"> </div>
+			<div class="column is-half">
+				{% if feeds %}
+				<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+					<thead>
+						<tr>
+							<th class="feed_title">Title</th>
+							<th class="feed_url">Feed URL</th>
+							<th class="order">Order</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for feed in feeds %}
+						<tr>
+							<td class="feed_title"><a href="/feeds/edit/{{ feed.id }}" target="_blank">{{ feed.title }}</a></td>
+							<td class="feed_url">{{ feed.url }}</td>
+							<td class="feed_url">{{ feed.order }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% else %}
+				<div class="container has-text-centered">
+					Subscribe feeds from&nbsp;<a href="/feeds/create">here</a>
+				</div>
+				{% endif %}
+
+			</div>
+			<div class="column"> </div>
+		</div>
+
+	</div>
+
+</section>
+{% endblock %}

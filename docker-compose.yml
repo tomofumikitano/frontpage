@@ -9,7 +9,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/hosts:/etc/hosts:ro
       - ./app:/app
-    restart: always
+    restart: unless-stopped
     ports: 
       - 8000:8000
     user: 1000:1000

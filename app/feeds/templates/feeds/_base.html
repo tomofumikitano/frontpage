@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		{% block head %}
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% block title %}{% endblock %}</title>
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+		{% load static %}
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'feeds/css/mystyles.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'feeds/css/style.css' %}">
+		{% endblock %}
+	</head>
+	<body>
+
+		{% include "feeds/_navbar.html" %}
+		{% include "feeds/_message.html" %}
+
+		{% block content %}
+		{% endblock %}
+
+		{% include "feeds/_footer.html" %}
+
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+		{% load static %}
+		<script src="{% static 'feeds/js/script.js' %}"></script>
+	</body>
+</html>

@@ -3,12 +3,11 @@ IMAGE_NAME=frontpage:v1
 CONTAINER_NAME=frontpage
 PORT=8000
 
-version=$(git log -n1 --format="%h")
-
 docker container stop $CONTAINER_NAME
 docker container rm $CONTAINER_NAME
 yes | docker system prune
 
+version=$(git log -n1 --format="%h")
 docker build -f Dockerfile --build-arg version="$version" -t "$IMAGE_NAME" .
 
 docker run -d \

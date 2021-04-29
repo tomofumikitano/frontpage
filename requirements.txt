@@ -1,3 +1,5 @@
-django==3.1.7
+django==3.2
 feedparser==6.0.2
 django-allow-cidr==0.3.1
+django-environ==0.4.5
+django-apscheduler==0.5.2

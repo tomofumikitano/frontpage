@@ -10,6 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import environ
+env = environ.Env()
+environ.Env.read_env() # read .env file
+
 from pathlib import Path
 from socket import gethostname, gethostbyname
 
@@ -21,12 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*^d*g3w@%2)u#-tuf1&z3q+3!9r1ud1kv-w0((6z$ge#-))ymj'
+# SECRET_KEY = '*^d*g3w@%2)u#-tuf1&z3q+3!9r1ud1kv-w0((6z$ge#-))ymj'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', gethostname(), gethostbyname(gethostname()), ]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', gethostname(), gethostbyname(gethostname()), ]
 ALLOWED_CIDR_NETS = ['192.168.2.0/24']
 
 
@@ -34,6 +39,7 @@ ALLOWED_CIDR_NETS = ['192.168.2.0/24']
 
 INSTALLED_APPS = [
     'feeds.apps.FeedsConfig',
+    'django_apscheduler',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,9 +84,14 @@ WSGI_APPLICATION = 'frontpage.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
+    # Edit .env for databaset configuration
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'frontpage.sqlite3',
+        'ENGINE': env("DB_ENGINE"),
+        'NAME': env("DB_NAME"),
+        'USER': env("DB_USER"),
+        'PASSWORD': env("DB_PASSWORD"),
+        'HOST': env("DB_HOST"),
+        'PORT': env("DB_PORT"),
     }
 }
 
@@ -122,3 +133,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# https://github.com/jcass77/django-apscheduler
+
+# See https://docs.djangoproject.com/en/dev/ref/settings/#datetime-format for format string
+# syntax details.
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+# Maximum run time allowed for jobs that are triggered manually via the Django admin site, which
+# prevents admin site HTTP requests from timing out.
+#
+# Longer running jobs should probably be handed over to a background task processing library
+# that supports multiple background worker processes instead (e.g. Dramatiq, Celery, Django-RQ,
+# etc. See: https://djangopackages.org/grids/g/workers-queues-tasks/ for popular options).
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds

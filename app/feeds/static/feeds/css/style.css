@@ -1,0 +1,31 @@
+td.date-published {
+    width: 15%;
+    font-size: 80%;
+    vertical-align: middle;
+}
+
+body {
+    font-size: 95%;
+}
+
+div.container {
+    width: 100%;
+}
+
+td.feed_title {
+    width: 50%;
+}
+
+table {
+    margin: 0 auto;
+}
+
+.right {
+    float: right;
+}
+
+.center {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}

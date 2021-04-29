@@ -1,0 +1,47 @@
+<nav class="navbar is-link" 
+		 role="navigation" 
+		aria-label="main navigation">
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+			<i class="far fa-newspaper"></i> &nbsp; Frontpage
+		</a>
+		
+		<a role="button" class="navbar-burger" 
+										 aria-label="menu" 
+										 aria-expanded="false" 
+										 data-target="menuItems">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="menuItems" class="navbar-menu">
+
+    <div class="navbar-end">
+      {% if user.is_authenticated %}
+				<a class="navbar-item" href="/feeds/manage">
+					<i class="fas fa-list"></i>&nbsp; Manage Feeds
+				</a>
+
+				<a class="navbar-item" href="/feeds/create">
+					<i class="fas fa-plus"></i>&nbsp; Add Feed
+				</a>
+
+				<a class="navbar-item" href="/feeds/logout">
+					<i class="fas fa-sign-out-alt"></i>&nbsp; Logout ({{ user }})
+				</a>
+      {% else %}
+				<a class="navbar-item" href="/feeds/login">
+					<i class="fas fa-sign-in-alt"></i>&nbsp; Login
+				</a>
+
+				<a class="navbar-item" href="/feeds/register">
+					<i class="fas fa-edit"></i>&nbsp; Register
+				</a>
+			{% endif %}
+		</div>
+
+	</div>
+</nav>

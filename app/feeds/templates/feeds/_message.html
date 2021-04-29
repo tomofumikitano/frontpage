@@ -1,0 +1,17 @@
+{% if error %}
+	<div class="notification is-danger is-light">
+	{{ error }}
+	</div>
+{% endif %}
+
+{% if messages %}
+		<ul class="messages">
+		{% for message in messages %}
+		{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+			<div class="notification is-danger is-light has-text-centered"> {{ message }} </div>
+		{% else %}
+			<div class="notification is-success is-light has-text-centered"> {{ message }} </div>
+		{% endif %}
+		{% endfor %}
+	</ul>
+{% endif %}

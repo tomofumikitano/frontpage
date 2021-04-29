@@ -1,42 +1,46 @@
-<!DOCTYPE html>
-<html>
+{% extends "feeds/_base.html" %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Front Page</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-</head>
+{% block title %}Front Page{% endblock %}
 
-<body>
-  <section class="section">
-    <div class="container">
+{% block content %}
+<section class="section">
 
-      <div class="columns is-multiline">
+	<div class="container">
 
-        {% for feed in feeds %}
-        <div class="column is-half-tablet is-half-desktop is-half-widescreen is-one-quarter-fullhd">
-          <div class="title">
-            <a href="{{ feed.home_url }}" target="_blank">{{ feed.title }}</a>
-          </div>
+		{% if model %}
+		<div class="columns is-multiline">
+			{% for feed, articles in model.items %}
+			<div class="column is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd">
 
-					{% for a in feed.article_set.all|slice:":10" %}
-          <div style="display: inline-block;">
-            {{ a.date_published | date:"M, j" }}
-          </div>
-          <div style="display: inline-block;">
-            <a href="{{ a.url }}" target="_blank">{{ a.title }}</a>
-          </div>
-          <br>
-					{% endfor %}
+				<div class="title is-5">
+					<a href="{{ feed.website_url }}" target="_blank">{{ feed.title }}</a>
+				</div>
 
-        </div>
-        {% endfor %} 
-      </div>
+				<table class="table">
+					<tbody>
+						{% for article in articles.all %}
+						<tr>
+							<td class="date-published">
+								{{ article.date_published | date:"M d" }}
+							</td>
+							<td>
+								<a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
 
-    </div>
-  </section>
+			</div>
+			{% endfor %}
+		</div>
+		{% else %}
+		<div class="container has-text-centered">
+			No feeds registered yet. <br>
+			Subscribe feeds from&nbsp;<a href="/feeds/create">here</a>.
+		</div>
+		{% endif %}
 
-</body>
-
-</html>
+	</div>
+</section>
+{% endblock %}

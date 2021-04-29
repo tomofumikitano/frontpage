@@ -6,3 +6,6 @@ migrate:
 
 runscheduler:
 	python3 manage.py runscheduler 
+
+update_feeds:
+	python3 manage.py update_feeds

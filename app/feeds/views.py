@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Feed, Article
 from .forms import FeedForm
-from utils.news_crawler import update_feed_by_id
+from .utils.news_crawler import update_feed_by_id
 
 ARTICLES_PER_FEED = 15
 

@@ -14,7 +14,7 @@ def startup():
     from apscheduler.triggers.cron import CronTrigger
     from apscheduler.schedulers.background import BackgroundScheduler
 
-    from utils.news_crawler import update_all_feeds
+    from .utils.news_crawler import update_all_feeds
     update_all_feeds()
 
     scheduler = BackgroundScheduler(timezone=settings.TIME_ZONE)

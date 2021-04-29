@@ -1,7 +1,10 @@
+source=./mystyles.scss
+target=../../app/feeds/static/feeds/css/style.css
+
 build:
 	clear
-	sass --sourcemap=none ./mystyles.scss:../../app/feeds/static/feeds/css/style.css
+	sass --sourcemap=none $(source):$(target)
 
 watch:
 	clear
-	sass --watch ./mystyles.scss:../../app/feeds/static/feeds/css/style.css
+	sass --watch $(target):$(source):$(target)

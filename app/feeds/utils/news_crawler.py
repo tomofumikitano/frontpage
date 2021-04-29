@@ -70,7 +70,3 @@ def update_all_feeds():
     feeds = Feed.objects.all()
     for f in feeds:
         update_feed_by_id(f.id)
-
-
-if __name__ == "__main__":
-    update_all_feeds()

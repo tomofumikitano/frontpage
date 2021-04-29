@@ -1,5 +1,3 @@
-# Frontpage - Self-host news aggregator for your browser home page.
-
 # Install 
 
 

@@ -2,10 +2,14 @@
 
 FROM python:3.8-slim-buster AS frontpage-base 
 ADD requirements.txt .
+
 RUN apt-get update -y && \
+		apt install -y --no-install-recommends gcc libpq-dev python3-dev && \
 		pip install -r requirements.txt && \
-		pip uninstall -y pip && \
-		apt-get autoremove -y
+		apt -y remove gcc python3-dev && \
+		apt-get autoremove -y && \
+		rm -rf /var/lib/apt/lists/*
+
 
 FROM frontpage-base
 WORKDIR /app
@@ -14,4 +18,4 @@ ARG version
 ENV APP_VERSION=${version}
 ENV PYTHONPATH='/app'
 EXPOSE 8000
-CMD ["/bin/bash", "run.sh"]
+CMD ["/usr/local/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]

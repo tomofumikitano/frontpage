@@ -27,7 +27,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', gethostname(), gethostbyname(gethostname()), ]
+ALLOWED_HOSTS = "*"
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', gethostname(), gethostbyname(gethostname()), ]
 ALLOWED_CIDR_NETS = ['192.168.2.0/24']
 
 

@@ -7,4 +7,4 @@ build:
 
 watch:
 	clear
-	sass --watch $(target):$(source):$(target)
+	sass --watch $(source):$(target)

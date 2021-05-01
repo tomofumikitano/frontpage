@@ -395,15 +395,13 @@ td.date-published {
 .theme-switch-wrapper {
   display: flex;
   align-items: center; }
-  .theme-switch-wrapper em {
-    margin-left: 10px;
-    font-size: 1rem; }
 
 .theme-switch {
   display: inline-block;
   height: 30px;
   width: 50px;
-  position: relative; }
+  position: relative;
+  margin-left: 5px; }
 
 .theme-switch input {
   display: none; }
@@ -441,3 +439,5 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%; }
+
+/*# sourceMappingURL=style.css.map */

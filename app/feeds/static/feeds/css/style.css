@@ -1,4 +1,18 @@
 @charset "UTF-8";
+:root {
+  --primary-color: #302AE6;
+  --secondary-color: #536390;
+  --font-color: #424242;
+  --bg-color: #fff;
+  --heading-color: #292922; }
+
+[data-theme="dark"] {
+  --primary-color: #9A97F3;
+  --secondary-color: #818cab;
+  --font-color: #e1e1ff;
+  --bg-color: #161625;
+  --heading-color: #818cab; }
+
 /* Bulma Base */
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 html,
@@ -346,22 +360,9 @@ table th {
   overflow-y: hidden;
   max-width: 100%; }
 
-:root {
-  --primary-color: #302AE6;
-  --secondary-color: #536390;
-  --font-color: #424242;
-  --bg-color: #fff;
-  --heading-color: #292922; }
-
-[data-theme="dark"] {
-  --primary-color: #9A97F3;
-  --secondary-color: #818cab;
-  --font-color: #e1e1ff;
-  --bg-color: #161625;
-  --heading-color: #818cab; }
-
 body {
   font-size: 90%;
+  color: var(--font-color);
   background-color: var(--bg-color); }
 
 a {

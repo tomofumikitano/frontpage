@@ -121,8 +121,8 @@ def register(request):
             login(request, user)
             return redirect('/')
         else:
-            for msg in form.error_messages:
-                print(form.error_messages[msg])
+            # for msg in form.error_messages:
+            #     print(form.error_messages[msg])
             messages.error(request, 'Failed creating user')
             return render(request, 'feeds/register.html', {"form": form})
     else:

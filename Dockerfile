@@ -17,4 +17,6 @@ ARG version
 ENV APP_VERSION=${version}
 ENV PYTHONPATH='/app'
 EXPOSE 8000
+CMD ["/usr/local/bin/python", "manage.py", "makemigrations"]
+CMD ["/usr/local/bin/python", "manage.py", "migrate"]
 CMD ["/usr/local/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]

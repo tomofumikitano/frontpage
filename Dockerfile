@@ -1,6 +1,8 @@
 # vi: ft=dockerfile
 
 FROM python:3.8-slim-buster AS frontpage-base 
+ENV DB_ENGINE=django.db.backends.sqlite3
+ENV DB_NAME=/data/frontpage.sqlite3
 ADD requirements.txt .
 RUN apt-get update -y && \
 		pip install -r requirements.txt && \

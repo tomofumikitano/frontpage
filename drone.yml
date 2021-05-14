@@ -13,4 +13,8 @@ steps:
       - rm -rf frontpage
       - git clone http://pi:4000/tkitano/frontpage.git
       - cd frontpage
-      - ./build_run_docker.sh
+      - docker container stop frontpage 2> /dev/null || true
+      - docker container rm frontpage 2> /dev/null || true
+      - yes | docker system prune
+      - docker build -f Dockerfile -t frontpage:v1 .
+      - docker run -d --restart=always --add-host pi:192.168.2.107 -p 8000:8000 --name frontpage frontpage:v1

@@ -20,4 +20,4 @@ ENV DB_ENGINE=django.db.backends.sqlite3
 ENV DB_NAME=/data/frontpage.sqlite3
 CMD ["/usr/local/bin/python", "manage.py", "makemigrations"]
 CMD ["/usr/local/bin/python", "manage.py", "migrate"]
-CMD ["/usr/local/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["/usr/local/bin/python", "manage.py", "runserver", "--noreload", "0.0.0.0:8000"]

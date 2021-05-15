@@ -5,8 +5,11 @@ export $(shell sed 's/=.*//' .env)
 run:
 	python3 manage.py runserver 0:8000
 
+run_prod:
+	python3 manage.py runserver --noreload 0:8000
+
 profile:
-	python3 -m cProfile -o profile.cprof manage.py runserver 0:8000
+	python3 -m cProfile -o profile.cprof manage.py runserver --noreload 0:8000
 
 migrate:
 	python3 manage.py makemigrations && python3 manage.py migrate

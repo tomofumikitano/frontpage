@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: frontpage:v1
-    container_name: frontpage
+    container_name: frontpage_app
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./app:/app
@@ -19,6 +19,7 @@ services:
 
   nginx:
     image: nginx
+    container_name: frontpage_nginx
     ports:
       - 8000:80
     volumes:

@@ -16,5 +16,4 @@ steps:
       - docker container stop frontpage 2> /dev/null || true
       - docker container rm frontpage 2> /dev/null || true
       - yes | docker system prune
-      - docker build -f Dockerfile -t frontpage:v1 .
-      - docker-compose up -d
+      - docker-compose up -d --build

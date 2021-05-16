@@ -42,6 +42,4 @@ class FeedsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
 
     def ready(self):
-        import os
-        if os.getenv('RUN_MAIN'):
-            startup()
+        startup()

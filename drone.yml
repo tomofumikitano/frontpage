@@ -13,8 +13,6 @@ steps:
       - rm -rf frontpage
       - git clone http://pi:4000/tkitano/frontpage.git
       - cd frontpage
-      # - docker container stop frontpage 2> /dev/null || true
       - docker-compose down 2> /dev/null || true
-      # - docker container rm frontpage 2> /dev/null || true
-      - docker system prune -f
+      # - docker system prune -f
       - docker-compose up -d --build

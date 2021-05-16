@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  djangoapp:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,28 +12,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./app:/app
       - /mnt/data:/data
-      - static_volume:/app/feeds/static
     restart: unless-stopped
-    networks:
-      - frontpage_network
-
-  nginx:
-    image: nginx
-    container_name: frontpage_nginx
     ports:
-      - 8000:80
-    volumes:
-      - ./config/nginx/conf.d:/etc/nginx/conf.d
-      - static_volume:/app/feeds/static
-    depends_on:
-      - djangoapp
-    restart: unless-stopped
-    networks:
-      - frontpage_network
-
-networks:
-  frontpage_network:
-    driver: bridge
-
-volumes:
-  static_volume:
+      - 8000:8000

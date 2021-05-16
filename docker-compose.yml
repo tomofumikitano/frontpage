@@ -15,7 +15,7 @@ services:
       - static_volume:/app/feeds/static
     restart: unless-stopped
     networks:
-      - frontpage-network
+      - frontpage_network
 
   nginx:
     image: nginx
@@ -29,10 +29,10 @@ services:
       - djangoapp
     restart: unless-stopped
     networks:
-      - frontpage-network
+      - frontpage_network
 
 networks:
-  frontpage-network:
+  frontpage_network:
     driver: bridge
 
 volumes:

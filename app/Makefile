@@ -3,6 +3,7 @@ include .env
 export $(shell sed 's/=.*//' .env)
 
 run:
+	@export DEBUG=True
 	python3 manage.py runserver 0:8000
 
 run_prod:

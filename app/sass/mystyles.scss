@@ -147,3 +147,8 @@ input:checked + .slider:before {
 .slider.round:before {
 	border-radius: 50%;
 }
+
+.table-container {
+	height: 350px;
+	overflow-y: auto;
+}

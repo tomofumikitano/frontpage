@@ -16,6 +16,7 @@
 					<a href="{{ feed.website_url }}" target="_blank">{{ feed.title }}</a>
 				</div>
 
+				<div class="table-container">
 				<table class="table">
 					<tbody>
 						{% for article in articles.all %}
@@ -23,13 +24,14 @@
 							<td class="date-published">
 								{{ article.date_published | date:"M d" }}
 							</td>
-							<td>
+							<td class="article">
 								<a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
 							</td>
 						</tr>
 						{% endfor %}
 					</tbody>
 				</table>
+				</div>
 
 			</div>
 			{% endfor %}

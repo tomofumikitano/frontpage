@@ -8,10 +8,10 @@
 
 [data-theme="dark"] {
   --primary-color: #9A97F3;
-  --secondary-color: #818cab;
+  --secondary-color: #818CAB;
   --font-color: #e1e1ff;
   --bg-color: #161625;
-  --heading-color: #818cab; }
+  --heading-color: #818CAB; }
 
 /* Bulma Base */
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
@@ -440,5 +440,9 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%; }
+
+.table-container {
+  height: 350px;
+  overflow-y: auto; }
 
 /*# sourceMappingURL=style.css.map */

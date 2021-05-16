@@ -442,5 +442,5 @@ input:checked + .slider:before {
   border-radius: 50%; }
 
 .table-container {
-  height: 350px;
-  overflow-y: auto; }
+  overflow-y: auto;
+  height: 350px; }

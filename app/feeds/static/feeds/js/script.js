@@ -32,5 +32,3 @@ if (currentTheme) {
     toggleSwitch.checked = true;
   }
 }
-
-a = 1;

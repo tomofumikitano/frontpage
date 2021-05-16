@@ -3,9 +3,10 @@
 :root {
 	--primary-color: #302AE6;
 	--secondary-color: #536390;
-	--font-color: #424242;
-	--bg-color: #fff;
+	--font-color: #535353;
+	--bg-color: #fbfbfb;
 	--heading-color: #292922;
+	--slider-bg-color: #ff9915;
 }
 
 [data-theme="dark"] {
@@ -27,37 +28,28 @@ $table-cell-border: 0px;
 $table-cell-border-width: 0 0 0px;
 $table-cell-padding: 0em 0em;
 
+$navy: hsl(239, 69%, 24%);
+$navbar-background-color: $navy;
+$navbar-dropdown-background-color: $navy;
+$navbar-item-color: white;
+$navbar-item-hover-color: white;
+$navbar-item-hover-background-color: $navy;
+
 // https://bulma.io/documentation/customize/with-sass-cli/
-// @import "bulma-0.9.2/bulma.sass";
-// Or, import only what you need from Bulma
 @import "bulma-0.9.2/sass/base/_all.sass";
 @import "bulma-0.9.2/sass/utilities/_all.sass";
 @import "bulma-0.9.2/sass/elements/container.sass";
 @import "bulma-0.9.2/sass/elements/table.sass";
+@import "bulma-0.9.2/sass/components/navbar.sass";
 
 body {
-	font-size: 90%;
+	font-size: 14px;
 	color: var(--font-color);
 	background-color: var(--bg-color);
 }
 
-.navbar {
-	// color: var(--font-color);
-	// background-color: var(--bg-color);
-}
-
-.navbar-menu {
-	// color: var(--primary-color);
-	// background-color: var(--bg-color);
-}
-
-.navbar-item {
-	// color: var(--font-color);
-	// background-color: var(--bg-color);
-}
-
 a {
-	color: var(--primary-color);
+	color: var(--font-color);
 }
 
 div.container {
@@ -78,6 +70,10 @@ td.date-published {
 	font-size: 80%;
 	vertical-align: middle;
 	color: var(--font-color);
+}
+
+td.article-title {
+	padding: 5px;
 }
 
 .right {
@@ -132,7 +128,7 @@ td.date-published {
 }
 
 input:checked + .slider {
-	background-color: #66bb6a;
+	background-color: var(--slider-bg-color);
 }
 
 /* ボールをクリックした時のX軸(右側)への移動量 */

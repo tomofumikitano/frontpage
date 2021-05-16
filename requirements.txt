@@ -4,3 +4,4 @@ django-allow-cidr==0.3.1
 django-apscheduler==0.5.2
 beautifulsoup4
 requests
+whitenoise==5.2.0

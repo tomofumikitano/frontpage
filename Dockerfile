@@ -11,6 +11,7 @@ RUN apt-get update -y && \
 FROM frontpage-base
 ADD ./app /app
 COPY ./entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 ENV PYTHONPATH='/app'
 
 ENTRYPOINT ["/entrypoint.sh"]

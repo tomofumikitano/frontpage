@@ -9042,4 +9042,7 @@ input:checked + .slider:before {
   overflow-y: auto;
   height: 350px; }
 
+.table, .table thead td, .table thead th {
+  color: var(--font-color); }
+
 /*# sourceMappingURL=style.css.map */

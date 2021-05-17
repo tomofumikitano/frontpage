@@ -15,6 +15,7 @@
 			{% csrf_token %}
 
 			<div class="field">
+				<label class="label">Username</label>
 				<p class="control has-icons-left has-icons-right">
 				<input name="username" class="input" type="text" placeholder="Username">
 				<span class="icon is-small is-left"> <i class="fas fa-user"></i> </span>
@@ -22,13 +23,16 @@
 			</div>
 
 			<div class="field">
+				<label class="label">Password</label>
 				<p class="control has-icons-left">
 				<input name="password1" class="input" type="password" placeholder="Password">
 				<span class="icon is-small is-left"> <i class="fas fa-lock"></i> </span>
 				</p>
+				<p class="help is-info">Password must include alphabets, numbers and at least 8 characters.</p>
 			</div>
 
 			<div class="field">
+				<label class="label">Password Confirm</label>
 				<p class="control has-icons-left">
 				<input name="password2" class="input" type="password" placeholder="Password confirmation">
 				<span class="icon is-small is-left"> <i class="fas fa-lock"></i> </span>
@@ -49,6 +53,6 @@
 
 
 <div class="content has-text-centered">
-If you already have an account <a href="/login" target="blank"><strong>login</strong></a> instead.
+If you already have an account <a href="/feeds/login" target="blank"><strong>login</strong></a> instead.
 </div>
 {% endblock %}

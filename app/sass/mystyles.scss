@@ -32,6 +32,7 @@ $navy: hsl(239, 69%, 24%);
 $navbar-background-color: $navy;
 $navbar-item-color: white;
 $navbar-item-hover-color: $navy;
+
 // Fix to force background color between screen width 969px and 1024px; 
 .navbar-menu {
 	background-color: $navy;

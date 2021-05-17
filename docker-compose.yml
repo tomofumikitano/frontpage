@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   app:
     build:
       context: .
@@ -11,7 +10,9 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./app:/app
-      - /mnt/data:/data
+      - ${DATA_DIR}:/data
     restart: unless-stopped
     ports:
       - 8000:8000
+    environment:
+      - SECRET_KEY=${SECRET_KEY}

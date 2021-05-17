@@ -12,9 +12,6 @@ FROM frontpage-base
 WORKDIR /app
 ADD ./app /app
 ENV PYTHONPATH='/app'
-ENV SECRET_KEY=evsb5m8eeka(dw(oho&z-c3adb_hi^+y_s61#v-qj&mtmywzi
-ENV DB_ENGINE=django.db.backends.sqlite3
-ENV DB_NAME=/data/frontpage.sqlite3
 CMD ["python", "manage.py", "makemigrations"]
 CMD ["python", "manage.py", "migrate"]
 CMD ["python", "manage.py", "collectstatic", "--noinput"]

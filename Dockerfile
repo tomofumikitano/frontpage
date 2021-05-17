@@ -1,7 +1,8 @@
 # vi: ft=dockerfile
 
 FROM python:3.8-slim-buster AS frontpage-base 
-ADD requirements.txt .
+# ADD requirements.txt .
+COPY ./requirements.txt /
 RUN apt-get update -y && \
 		pip install -r requirements.txt && \
 		apt-get autoremove -y && \
@@ -10,7 +11,7 @@ RUN apt-get update -y && \
 FROM frontpage-base
 # WORKDIR /app
 ADD ./app /app
-ADD entrypoint.sh .
+COPY ./entrypoint.sh /
 ENV PYTHONPATH='/app'
 
 ENTRYPOINT ["entrypoint.sh"]

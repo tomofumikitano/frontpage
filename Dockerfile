@@ -7,10 +7,10 @@ RUN apt-get update -y && \
 		apt-get autoremove -y && \
 		rm -rf /var/lib/apt/lists/*
 
-
 FROM frontpage-base
-WORKDIR /app
+# WORKDIR /app
 ADD ./app /app
-ENV PYTHONPATH='/app'
+ADD entrypoint.sh /
+# ENV PYTHONPATH='/app'
 
 ENTRYPOINT ["entrypoint.sh"]

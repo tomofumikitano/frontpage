@@ -1,6 +1,5 @@
 .DS_Store
 .tags
-.env
 __pycache__
 .sass-cache
 *.css.map

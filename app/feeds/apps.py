@@ -23,7 +23,7 @@ def start_scheduler():
 
     scheduler.add_job(
         update_all_feeds,
-        trigger=CronTrigger(hour="*", minute="40"),
+        trigger=CronTrigger(hour="*", minute="*/10"),
         id="update_all_feeds",  # The `id` assigned to each job MUST be unique
         max_instances=1,
         replace_existing=True,

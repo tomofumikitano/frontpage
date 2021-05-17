@@ -5,3 +5,4 @@ __pycache__
 *.css.map
 .prof
 .cprof
+app/feeds/static/admin/

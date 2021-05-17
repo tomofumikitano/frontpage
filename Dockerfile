@@ -10,7 +10,7 @@ RUN apt-get update -y && \
 FROM frontpage-base
 # WORKDIR /app
 ADD ./app /app
-ADD entrypoint.sh /
-# ENV PYTHONPATH='/app'
+ADD entrypoint.sh .
+ENV PYTHONPATH='/app'
 
 ENTRYPOINT ["entrypoint.sh"]

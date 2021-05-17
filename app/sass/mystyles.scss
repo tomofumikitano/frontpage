@@ -30,12 +30,15 @@ $table-cell-padding: 0em 0em;
 
 $navy: hsl(239, 69%, 24%);
 $navbar-background-color: $navy;
-$navbar-dropdown-background-color: $navy;
 $navbar-item-color: white;
-$navbar-item-hover-color: white;
-$navbar-item-hover-background-color: $navy;
+$navbar-item-hover-color: $navy;
+// Fix to force background color between screen width 969px and 1024px; 
+.navbar-menu {
+	background-color: $navy;
+}
 
 // https://bulma.io/documentation/customize/with-sass-cli/
+@import "bulma-0.9.2/bulma.sass";
 @import "bulma-0.9.2/sass/base/_all.sass";
 @import "bulma-0.9.2/sass/utilities/_all.sass";
 @import "bulma-0.9.2/sass/elements/container.sass";

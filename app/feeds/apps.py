@@ -1,3 +1,4 @@
+import sys
 from django.conf import settings
 from django.apps import AppConfig
 
@@ -9,7 +10,7 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger(__name__)
 
 
-def startup():
+def start_scheduler():
     from django_apscheduler.jobstores import DjangoJobStore
     from apscheduler.triggers.cron import CronTrigger
     from apscheduler.schedulers.background import BackgroundScheduler
@@ -42,4 +43,5 @@ class FeedsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
 
     def ready(self):
-        startup()
+        if 'runserver' in sys.argv:
+            start_scheduler()

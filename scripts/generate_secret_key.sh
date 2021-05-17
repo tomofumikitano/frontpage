@@ -2,7 +2,7 @@
 
 SECRET_KEY_LENGTH=50
 
-printf -v chars "%s%s" {a..z} {A..Z} {0..9} "@#$%^&*+=<>?\"'"
+printf -v chars "%s%s" {a..z} {A..Z} {0..9} "!#$%&()-^_~[]{}+*;"
 chars_len=${#chars}
 
 result=''

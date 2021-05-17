@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'frontpage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/data/frontpage.sqlite3',
+        'NAME': os.environ.get('DB_NAME', '/data/frontpage.sqlite3'),
         # 'ENGINE': os.getenv("DB_ENGINE"),
         # 'NAME': os.getenv("DB_NAME"),
         # 'USER': os.getenv("DB_USER"),

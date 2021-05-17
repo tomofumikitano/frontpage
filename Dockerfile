@@ -9,9 +9,8 @@ RUN apt-get update -y && \
 		rm -rf /var/lib/apt/lists/*
 
 FROM frontpage-base
-# WORKDIR /app
 ADD ./app /app
 COPY ./entrypoint.sh /
 ENV PYTHONPATH='/app'
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

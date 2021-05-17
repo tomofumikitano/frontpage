@@ -24,8 +24,7 @@ update_feeds:
 test_env:
 	@env | grep DB_USER
 	@env | grep SECRET_KEY
-	@env | grep DB_ENGINE
-	@env | grep DB_NAME
+	@env | grep SQLITE_DB_PATH 
 	@env | grep DB_USER
 	@env | grep DB_HOST
 	@env | grep DB_PORT

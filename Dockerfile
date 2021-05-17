@@ -12,7 +12,5 @@ FROM frontpage-base
 WORKDIR /app
 ADD ./app /app
 ENV PYTHONPATH='/app'
-CMD ["python", "manage.py", "makemigrations"]
-CMD ["python", "manage.py", "migrate"]
-CMD ["python", "manage.py", "collectstatic", "--noinput"]
-CMD ["python", "manage.py", "runserver", "--noreload", "0.0.0.0:8000"]
+
+ENTRYPOINT ["entrypoint.sh"]

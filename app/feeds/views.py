@@ -14,7 +14,7 @@ ARTICLES_PER_FEED = 15
 def index(request):
     # TODO
     if not request.user.is_authenticated:
-        messages.info(request, 'Please login or register.')
+        # messages.info(request, 'Please login or register.')
         return redirect('/feeds/login')
 
     model = dict()

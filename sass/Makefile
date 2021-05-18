@@ -7,4 +7,4 @@ build:
 
 watch:
 	clear
-	sass --watch $(source):$(target)
+	sass --sourcemap=none --watch $(source):$(target)

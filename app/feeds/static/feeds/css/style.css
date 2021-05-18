@@ -14,9 +14,6 @@
   --bg-color: #161625;
   --heading-color: #818CAB; }
 
-.navbar-menu {
-  background-color: #131467; }
-
 /*! bulma.io v0.9.2 | MIT License | github.com/jgthms/bulma */
 /* Bulma Utilities */
 .button, .input, .textarea, .select select, .file-cta,
@@ -7712,5 +7709,3 @@ input:checked + .slider:before {
 
 .table, .table thead td, .table thead th {
   color: var(--font-color); }
-
-/*# sourceMappingURL=style.css.map */

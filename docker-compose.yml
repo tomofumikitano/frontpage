@@ -9,11 +9,10 @@ services:
     container_name: frontpage_app
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /mnt/data:/data
     restart: unless-stopped
     ports:
       - 8000:8000
     environment:
-      - SECRET_KEY=${SECRET_KEY}
-      - SQLITE_DB_PATH=/data/frontpage.sqlite3
       - PORT=8000
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=${DATABASE_URL}

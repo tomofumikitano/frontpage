@@ -8,7 +8,6 @@ RUN apt-get update -y && \
 		rm -rf /var/lib/apt/lists/*
 
 FROM frontpage-base
-RUN mkdir /data
 COPY ./app /app
 COPY ./entrypoint.sh /
 RUN chmod +x /entrypoint.sh

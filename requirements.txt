@@ -5,3 +5,4 @@ django-apscheduler==0.5.2
 beautifulsoup4
 requests
 whitenoise==5.2.0
+dj_database_url==0.5.0

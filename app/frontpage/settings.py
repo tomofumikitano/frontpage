@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import dj_database_url
 import os
 
 from pathlib import Path
@@ -81,16 +82,17 @@ WSGI_APPLICATION = 'frontpage.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.getenv("SQLITE_DB_PATH"),
-        # 'USER': os.getenv("DB_USER"),
-        # 'PASSWORD': os.getenv("DB_PASSWORD"),
-        # 'HOST': os.getenv("DB_HOST"),
-        # 'PORT': os.getenv("DB_PORT"),
-    }
-}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.getenv("SQLITE_DB_PATH"),
+#         # 'USER': os.getenv("DB_USER"),
+#         # 'PASSWORD': os.getenv("DB_PASSWORD"),
+#         # 'HOST': os.getenv("DB_HOST"),
+#         # 'PORT': os.getenv("DB_PORT"),
+#     }
+# }
 
 
 # Password validation

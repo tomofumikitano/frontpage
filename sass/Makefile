@@ -1,5 +1,5 @@
 source=./mystyles.scss
-target=../../app/feeds/static/feeds/css/style.css
+target=../app/feeds/static/feeds/css/style.css
 
 build:
 	clear

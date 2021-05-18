@@ -18,7 +18,6 @@ migrate:
 	python3 app/manage.py migrate
 
 setup_postgres:
-	@env | grep DATABASE_URL 
 	psql "postgres://postgres:postgres@192.168.2.107:5432/" -f "scripts/database/setup_postgres.sql"
 
 runscheduler:

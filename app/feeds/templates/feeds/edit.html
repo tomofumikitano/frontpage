@@ -1,5 +1,7 @@
 {% extends 'feeds/_base.html' %}
 
+{% block title %}Edit Feed | Front Page{% endblock %}
+
 {% block content %}
 
 <br>
@@ -45,7 +47,7 @@
 			<div class="field">
 				<p class="control has-icons-left">
 				<input name="order" class="input" type="number" min="1" max="10" placeholder="order" value="{{ feed.order }}">
-				<span class="icon is-small is-left"> <i class="fas fa-newspaper"></i> </span>
+				<span class="icon is-small is-left"> <i class="fas fa-sort"></i> </span>
 				</p>
 			</div>
 

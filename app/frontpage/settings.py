@@ -82,6 +82,9 @@ WSGI_APPLICATION = 'frontpage.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+from .database_url_helper import load_database_url
+load_database_url()
+
 DATABASES = {
     'default': {
         'ENGINE': os.getenv("DB_ENGINE"),

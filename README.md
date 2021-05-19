@@ -36,7 +36,7 @@ May take 10-20 secs before Heroku wakes sleeping container up.
 
 1. Create `.env` file with following format. 
 ```sh
-SECRET_KEY=84xC&l)z+FXxp0o8morC(GXF{U0)#pzs6eutXC+*(di~rEtlnN
+SECRET_KEY=<YOUR SECRET KEY HERE>
 DATABASE_URL=postgres://frontpage:frontpage@192.168.0.100:5432/frontpage
 ```
 - `SECRET_KEY`: run `scripts/generate_secret_key.sh`

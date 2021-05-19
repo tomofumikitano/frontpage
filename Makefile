@@ -1,4 +1,3 @@
-#!make
 include .env
 export $(shell sed 's/=.*//' .env)
 
@@ -13,19 +12,21 @@ profile:
 	python3 -m cProfile -o profile.cprof app/manage.py runserver --noreload 0:8000
 
 migrate:
-	@env | grep DATABASE_URL 
+	@echo $(DATABASE_URL)
 	python3 app/manage.py makemigrations
 	python3 app/manage.py migrate
 
-setup_postgres:
-	psql "postgres://postgres:postgres@192.168.2.107:5432/" -f "scripts/database/setup_postgres.sql"
+test_db:
+	@psql -c "\conninfo" $(DATABASE_URL)
+
+setup_db:
+	psql $(DATABASE_URL) -f "scripts/db/setup_postgres.sql"
+
+heroku_test_db:
+	@psql -c "\conninfo" $(shell heroku config:get DATABASE_URL)
 
 runscheduler:
-	python3 app/manage.py runscheduler 
+	python3 app/manage.py runscheduler
 
 update_feeds:
 	python3 app/manage.py update_feeds
-
-test_env:
-	@env | grep SECRET_KEY
-	@env | grep DATABASE_URL

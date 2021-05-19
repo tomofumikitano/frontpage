@@ -35,7 +35,6 @@ $navbar-item-hover-color: $navy;
 
 @import "bulma/bulma.sass";
 
-
 html {
 	font-size: 14px;
 	color: var(--font-color);
@@ -46,8 +45,12 @@ body {
 	color: var(--font-color);
 }
 
-a {
+a, a:hover {
 	color: var(--font-color);
+}
+
+a:hover {
+	text-decoration: underline;
 }
 
 div.container {
@@ -96,10 +99,9 @@ td.article-title {
 	width: 50px;
 	position: relative;
 	margin-left: 5px;
-}
-
-.theme-switch input {
-	display: none;
+	input {
+		display: none;
+	}
 }
 
 .slider {
@@ -125,28 +127,24 @@ td.article-title {
 	transition: .4s;
 }
 
-input:checked + .slider {
-	background-color: var(--slider-bg-color);
-}
-
-/* ボールをクリックした時のX軸(右側)への移動量 */
-input:checked + .slider:before {
-	transform: translateX(20px);
+input:checked { 
+	+ .slider {
+		background-color: var(--slider-bg-color);
+	}
+	/* ボールをクリックした時のX軸(右側)への移動量 */
+	+ .slider:before {
+		transform: translateX(20px);
+	}
 }
 
 .slider.round {
 	border-radius: 30px;
-}
-
-.slider.round:before {
-	border-radius: 50%;
+	&:before {
+		border-radius: 50%;
+	}
 }
 
 .table-container {
 	overflow-y: auto;
 	height: 350px;
-}
-
-.table, .table thead td, .table thead th {
-	color: var(--font-color);
 }

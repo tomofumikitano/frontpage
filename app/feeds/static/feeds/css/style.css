@@ -7625,8 +7625,11 @@ html {
 body {
   color: var(--font-color); }
 
-a {
+a, a:hover {
   color: var(--font-color); }
+
+a:hover {
+  text-decoration: underline; }
 
 div.container {
   width: 100%;
@@ -7666,9 +7669,8 @@ td.article-title {
   width: 50px;
   position: relative;
   margin-left: 5px; }
-
-.theme-switch input {
-  display: none; }
+  .theme-switch input {
+    display: none; }
 
 .slider {
   background-color: #ccc;
@@ -7691,22 +7693,20 @@ td.article-title {
   position: absolute;
   transition: .4s; }
 
-input:checked + .slider {
-  background-color: var(--slider-bg-color); }
-
-/* ボールをクリックした時のX軸(右側)への移動量 */
-input:checked + .slider:before {
-  transform: translateX(20px); }
+input:checked {
+  /* ボールをクリックした時のX軸(右側)への移動量 */ }
+  input:checked + .slider {
+    background-color: var(--slider-bg-color); }
+  input:checked + .slider:before {
+    transform: translateX(20px); }
 
 .slider.round {
   border-radius: 30px; }
-
-.slider.round:before {
-  border-radius: 50%; }
+  .slider.round:before {
+    border-radius: 50%; }
 
 .table-container {
   overflow-y: auto;
   height: 350px; }
 
-.table, .table thead td, .table thead th {
-  color: var(--font-color); }
+/*# sourceMappingURL=style.css.map */

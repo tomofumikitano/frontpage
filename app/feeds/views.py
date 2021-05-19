@@ -63,7 +63,7 @@ def create(request):
                 print(f"Saved {feed.id}")
             except Exception as e:
                 raise e
-            messages.success(request, f'Subscribed {feed.title}')
+            messages.success(request, f'Subscribed to {feed.title}')
             return redirect('/')
         else:
             messages.error(request, 'Something wrong.')
@@ -87,7 +87,7 @@ def edit(request, pk):
             feed.order = int(request.POST['order'])
             feed.save()
             messages.success(request, f'Updated {feed}')
-            return redirect('/')
+            return redirect('/feeds/manage')
 
     feed = get_object_or_404(Feed, pk=pk)
     return render(request, 'feeds/edit.html', context={'feed': feed})

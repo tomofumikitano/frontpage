@@ -1,5 +1,11 @@
 Self-hosted RSS news aggregator for your browser home page
 
+![PC View](docs/img/PC.png)
+
+<img src="docs/img/Mobile%20Dark.jpg" alt="Mobile Dark" width="400px;"/>
+<img src="docs/img/Mobile%20Light.jpg" alt="Mobile Light" width="400px;"/>
+
+
 # Features
 - PC/Mobile view
 - Dark Theme

@@ -13,7 +13,7 @@ class Feed(models.Model):
     title = models.CharField(max_length=255)
     website_url = models.CharField(max_length=255)
     date_created = models.DateTimeField('date created', default=timezone.now)
-    order = models.PositiveIntegerField(default=5)
+    order = models.PositiveIntegerField(default=10)
     user = models.ForeignKey(
         User, default=1, null=False, on_delete=models.CASCADE)
 

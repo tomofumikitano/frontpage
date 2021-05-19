@@ -14,7 +14,7 @@ def load_database_url():
         raise Exception('DATABASE_URL env variable is not deined!')
 
     o = urlparse(database_url)
-    print(o)
+    # print(o)
 
     cred, host = o.netloc.split('@')
     user, password = cred.split(':')
@@ -27,6 +27,6 @@ def load_database_url():
     os.environ['DB_ENGINE'] = ENGINE_LOOKUP[o.scheme]
     os.environ['DB_NAME'] = o.path.strip('/')
 
-    print("Set env variables..")
-    for k in ['DB_ENGINE', 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT']:
-        print(f"{k:>11}: {os.getenv(k)}")
+    # print("Set env variables")
+    # for k in ['DB_ENGINE', 'DB_NAME', 'DB_USER', 'DB_PASSWORD', 'DB_HOST', 'DB_PORT']:
+    #     print(f"{k:>11}: {os.getenv(k)}")

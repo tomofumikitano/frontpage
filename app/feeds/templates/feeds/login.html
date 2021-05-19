@@ -1,6 +1,10 @@
 {% extends 'feeds/_base.html' %}
 
+<<<<<<< HEAD
 {% block title %}Login | Frontpage{% endblock %}
+=======
+{% block title %}Login{% endblock %}
+>>>>>>> bf7b950b8a913a67e3390496f7235026ac73eae0
 
 {% block content %}
 
@@ -14,6 +18,7 @@
 
 			{% csrf_token %}
 
+			Username
 			<div class="field">
 				<p class="control has-icons-left has-icons-right">
 				<input name="username" class="input" type="text" placeholder="username">
@@ -21,6 +26,7 @@
 				</p>
 			</div>
 
+			Password	
 			<div class="field">
 				<p class="control has-icons-left">
 				<input name="password" class="input" type="password" placeholder="password">

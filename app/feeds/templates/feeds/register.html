@@ -1,6 +1,6 @@
 {% extends 'feeds/_base.html' %}
 
-{% block title %}Register | Frontpage{% endblock %}
+{% block title %}Register{% endblock %}
 
 {% block content %}
 
@@ -16,6 +16,7 @@
 
 			{% csrf_token %}
 
+			Username
 			<div class="field">
 				<label class="label">Username</label>
 				<p class="control has-icons-left has-icons-right">
@@ -24,6 +25,7 @@
 				</p>
 			</div>
 
+			Password
 			<div class="field">
 				<label class="label">Password</label>
 				<p class="control has-icons-left">

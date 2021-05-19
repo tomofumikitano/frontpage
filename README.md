@@ -7,24 +7,24 @@ Self-hosted RSS news aggregator for your browser home page
 
 # Screenshots
 
-
-![PC View](docs/img/PC.png)
-
-<br/>
-
-<img src="docs/img/Mobile%20Dark.jpg" alt="Mobile Dark" width="350px;"/>
-<img src="docs/img/Mobile%20Light.jpg" alt="Mobile Light" width="350px;"/>
+PC             |
+:-------------:|
+![PC View](docs/img/PC.png) |
 
 <br/>
+
+Mobile Dark             |  Mobile Light
+:-------------------------:|:-------------------------:
+<img src="docs/img/Mobile%20Dark.jpg" alt="Mobile Dark" width="350px;"/>  |  <img src="docs/img/Mobile%20Light.jpg" alt="Mobile Light" width="350px;"/>
+
 <br/>
-
-
 
 
 # Demo
 https://frontpageshowcase.herokuapp.com/feeds/
 
 May take 10-20 secs before Heroku wakes sleeping container up.
+
 
 # Setup
 

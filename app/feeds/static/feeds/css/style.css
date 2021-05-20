@@ -7615,7 +7615,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 
 .footer {
   background-color: #fafafa;
-  padding: 3rem 1.5rem 6rem; }
+  padding: 0rem 0rem 2rem; }
 
 .navbar-brand a.navbar-item:focus,
 .navbar-brand a.navbar-item:hover {
@@ -7628,6 +7628,9 @@ html {
 
 body {
   color: var(--font-color); }
+
+.footer {
+  background-color: var(--bg-color); }
 
 a, a:hover {
   color: var(--font-color); }

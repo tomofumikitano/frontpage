@@ -33,6 +33,8 @@ $navbar-background-color: $navy;
 $navbar-item-color: white;
 $navbar-item-hover-color: $navy;
 
+$footer-padding: 0rem 0rem 2rem; 
+
 @import "bulma/bulma.sass";
 
 .navbar-brand a.navbar-item:focus, 
@@ -48,6 +50,10 @@ html {
 
 body {
 	color: var(--font-color);
+}
+
+.footer {
+	background-color: var(--bg-color);
 }
 
 a, a:hover {

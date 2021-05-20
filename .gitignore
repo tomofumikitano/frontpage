@@ -6,3 +6,4 @@ __pycache__
 .prof
 .cprof
 app/feeds/static/admin/
+app/feeds/static/feeds/css/bulma

@@ -7629,6 +7629,9 @@ html {
 body {
   color: var(--font-color); }
 
+strong {
+  color: var(--font-color); }
+
 .footer {
   background-color: var(--bg-color); }
 
@@ -7712,3 +7715,5 @@ input:checked {
 .table-container {
   overflow-y: auto;
   height: 350px; }
+
+/*# sourceMappingURL=style.css.map */

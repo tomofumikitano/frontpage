@@ -9,7 +9,7 @@ ENGINE_LOOKUP = {
 def load_database_url():
 
     database_url = os.getenv('DATABASE_URL')
-    print(f"Found DATABASE_URL: {database_url}")
+    # print(f"DATABASE_URL: {database_url}")
     if not database_url:
         raise Exception('DATABASE_URL env variable is not deined!')
 

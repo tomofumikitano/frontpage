@@ -13,7 +13,7 @@
 			<div class="column is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd">
 
 				<div class="title is-6">
-					<a href="{{ feed.website_url }}" target="_blank">{{ feed.title }}</a>
+					<a href="{{ feed.website_url }}">{{ feed.title }}</a>
 					&nbsp;
 					<a href="/feeds/edit/{{ feed.id }}">
 						<i class="far fa-edit"></i>
@@ -29,7 +29,7 @@
 								{{ article.date_published | date:"M d" }}
 							</td>
 							<td class="article-title">
-								<a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+								<a href="{{ article.url }}">{{ article.title }}</a>
 							</td>
 						</tr>
 						{% endfor %}

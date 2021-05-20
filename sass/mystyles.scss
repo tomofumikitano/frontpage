@@ -35,6 +35,11 @@ $navbar-item-hover-color: $navy;
 
 @import "bulma/bulma.sass";
 
+.navbar-brand a.navbar-item:focus, 
+.navbar-brand a.navbar-item:hover {
+	color: white;
+}
+
 html {
 	font-size: 14px;
 	color: var(--font-color);
@@ -47,10 +52,6 @@ body {
 
 a, a:hover {
 	color: var(--font-color);
-}
-
-a:hover {
-	text-decoration: underline;
 }
 
 div.container {

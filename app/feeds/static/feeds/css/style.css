@@ -7617,6 +7617,10 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
+.navbar-brand a.navbar-item:focus,
+.navbar-brand a.navbar-item:hover {
+  color: white; }
+
 html {
   font-size: 14px;
   color: var(--font-color);
@@ -7627,9 +7631,6 @@ body {
 
 a, a:hover {
   color: var(--font-color); }
-
-a:hover {
-  text-decoration: underline; }
 
 div.container {
   width: 100%;
@@ -7708,5 +7709,3 @@ input:checked {
 .table-container {
   overflow-y: auto;
   height: 350px; }
-
-/*# sourceMappingURL=style.css.map */

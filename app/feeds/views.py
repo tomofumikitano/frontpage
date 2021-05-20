@@ -1,6 +1,7 @@
 import feedparser
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -11,11 +12,8 @@ from .utils.news_crawler import update_feed_by_id
 ARTICLES_PER_FEED = 15
 
 
+@login_required(redirect_field_name=None)
 def index(request):
-    # TODO
-    if not request.user.is_authenticated:
-        # messages.info(request, 'Please login or register.')
-        return redirect('/feeds/login')
 
     model = dict()
     feeds = Feed.objects.filter(user_id=request.user.id).order_by('order')
@@ -26,11 +24,8 @@ def index(request):
     return render(request, 'feeds/index.html', context={'model': model})
 
 
+@login_required
 def manage(request):
-    # TODO
-    if not request.user.is_authenticated:
-        messages.error(request, 'Please login or register.')
-        return redirect('/feeds/login')
 
     feeds = Feed.objects.filter(user_id=request.user.id).order_by('order')
 
@@ -40,11 +35,8 @@ def manage(request):
     return render(request, 'feeds/manage.html', context={'feeds': feeds})
 
 
+@login_required
 def create(request):
-    # TODO
-    if not request.user.is_authenticated:
-        messages.error(request, 'Please login or register.')
-        return redirect('/feeds/login')
 
     if request.method == "POST":
         url = request.POST['url']
@@ -61,8 +53,10 @@ def create(request):
                 feed.save()
                 update_feed_by_id(feed.id)
                 print(f"Saved {feed.id}")
-            except Exception as e:
-                raise e
+            except Exception as ex:
+                messages.error(request, 'Error processing request.')
+                return redirect('/feeds/create')
+
             messages.success(request, f'Subscribed to {feed.title}')
             return redirect('/')
         else:
@@ -71,11 +65,8 @@ def create(request):
     return render(request, 'feeds/edit.html', context={'feed': None})
 
 
+@login_required
 def edit(request, pk):
-    # TODO
-    if not request.user.is_authenticated:
-        messages.error(request, 'Please login or register.')
-        return redirect('/feeds/login')
 
     if request.method == "POST":
         form = FeedForm(request.POST)
@@ -90,14 +81,12 @@ def edit(request, pk):
             return redirect('/feeds/manage')
 
     feed = get_object_or_404(Feed, pk=pk)
-    return render(request, 'feeds/edit.html', context={'feed': feed})
+    form = FeedForm(instance=feed)
+    return render(request, 'feeds/edit.html', context={'feed': feed, 'form': form})
 
 
+@login_required
 def delete(request, pk):
-    # TODO
-    if not request.user.is_authenticated:
-        messages.error(request, 'Please login or register.')
-        return redirect('/feeds/login')
 
     if request.method == "POST":
         try:
@@ -139,13 +128,13 @@ def handle_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f'You are now logged in as {username}')
+                messages.info(request, f'Welcome back {username}!')
                 return redirect('/')
             else:
-                messages.error(request, f'Invalid username or password')
+                messages.error(request, 'Invalid username or password')
                 return redirect('/feeds/login')
         else:
-            messages.error(request, f'Invalid username or password')
+            messages.error(request, 'Invalid username or password')
             return redirect('/feeds/login')
 
     form = AuthenticationForm()

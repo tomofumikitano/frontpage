@@ -1,1 +1,2 @@
 app/feeds/static/feeds/scss/bulma/** linguist-detectable=false
+*.css linguist-detectable=false

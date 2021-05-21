@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 :root {
+	font-size: 14px;
 	--primary-color: #302AE6;
 	--secondary-color: #536390;
 	--font-color: #535353;
@@ -8,7 +9,7 @@
 	--slider-bg-color: #ff9915;
 }
 
-[data-theme="dark"] {
+[theme="dark"] {
 	--primary-color: #9A97F3;
 	--secondary-color: #818CAB;
 	--font-color: #e1e1ff;
@@ -37,13 +38,11 @@ $footer-padding: 0rem 0rem 1rem;
 
 @import "bulma/bulma.sass";
 
-.navbar-brand a.navbar-item:focus, 
 .navbar-brand a.navbar-item:hover {
 	color: white;
 }
 
 html {
-	font-size: 14px;
 	color: var(--font-color);
 	background-color: var(--bg-color);
 }
@@ -75,6 +74,11 @@ table {
 
 .table {
 	background-color: var(--bg-color);
+}
+
+.table-container {
+	overflow-y: auto;
+	height: 350px;
 }
 
 td.date-published {
@@ -153,9 +157,4 @@ input:checked {
 	&:before {
 		border-radius: 50%;
 	}
-}
-
-.table-container {
-	overflow-y: auto;
-	height: 350px;
 }

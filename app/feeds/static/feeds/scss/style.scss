@@ -16,7 +16,6 @@
 	--bg-color: #161625;
 }
 
-
 // Update some of Bulma's component variables
 // https://bulma.io/documentation/customize/with-sass-cli/
 $control-border-width: 2px;
@@ -34,7 +33,7 @@ $navbar-background-color: $navy;
 $navbar-item-color: white;
 $navbar-item-hover-color: $navy;
 
-$footer-padding: 0rem 0rem 1rem; 
+$footer-padding: 2rem 0rem 1rem;
 
 @import "bulma/bulma.sass";
 
@@ -55,6 +54,10 @@ strong {
 	color: var(--font-color);
 }
 
+.section {
+	padding: 1.5rem 0rem 0rem 0rem;
+}
+
 .footer {
 	background-color: var(--bg-color);
 }
@@ -68,17 +71,26 @@ div.container {
 	background-color: var(--bg-color);
 }
 
-table {
-	margin: 0 auto;
+@media screen and (max-width: 767px) {
+	div.column {
+		padding: 0 2rem 0;
+	}
 }
 
 .table {
 	background-color: var(--bg-color);
 }
 
-.table-container {
-	overflow-y: auto;
-	height: 350px;
+.title {
+	padding-top: 2rem;
+	margin-bottom: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+	.table-container {
+		overflow-y: auto;
+		height: 350px;
+	}
 }
 
 td.date-published {
@@ -114,6 +126,7 @@ td.article-title {
 	width: 50px;
 	position: relative;
 	margin-left: 5px;
+
 	input {
 		display: none;
 	}
@@ -142,10 +155,11 @@ td.article-title {
 	transition: .4s;
 }
 
-input:checked { 
+input:checked {
 	+ .slider {
 		background-color: var(--slider-bg-color);
 	}
+
 	/* ボールをクリックした時のX軸(右側)への移動量 */
 	+ .slider:before {
 		transform: translateX(20px);
@@ -154,6 +168,7 @@ input:checked {
 
 .slider.round {
 	border-radius: 30px;
+
 	&:before {
 		border-radius: 50%;
 	}

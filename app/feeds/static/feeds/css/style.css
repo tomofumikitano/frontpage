@@ -7616,7 +7616,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 
 .footer {
   background-color: #fafafa;
-  padding: 0rem 0rem 1rem; }
+  padding: 2rem 0rem 1rem; }
 
 .navbar-brand a.navbar-item:hover {
   color: white; }
@@ -7631,6 +7631,9 @@ body {
 strong {
   color: var(--font-color); }
 
+.section {
+  padding: 1.5rem 0rem 0rem 0rem; }
+
 .footer {
   background-color: var(--bg-color); }
 
@@ -7641,16 +7644,20 @@ div.container {
   width: 100%;
   background-color: var(--bg-color); }
 
-table {
-  margin: 0 auto; }
-
+@media screen and (max-width: 767px) {
+  div.column {
+    padding: 0 2rem 0; } }
 .table {
   background-color: var(--bg-color); }
 
-.table-container {
-  overflow-y: auto;
-  height: 350px; }
+.title {
+  padding-top: 2rem;
+  margin-bottom: 1rem; }
 
+@media screen and (min-width: 768px) {
+  .table-container {
+    overflow-y: auto;
+    height: 350px; } }
 td.date-published {
   width: 15%;
   font-size: 80%;

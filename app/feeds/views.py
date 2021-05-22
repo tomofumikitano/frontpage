@@ -1,3 +1,4 @@
+from django.http import HttpResponseNotFound
 import feedparser
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
@@ -9,7 +10,13 @@ from .models import Feed, Article
 from .forms import FeedForm
 from .utils.news_crawler import update_feed_by_id
 
+import logging
+logger = logging.getLogger(__name__)
+
 ARTICLES_PER_FEED = 15
+
+ERROR_INVALID_FEED_URL = 'Error processing request. Invalid RSS/ATOM feed URL?'
+ERROR_NOT_FOUND = 'Not Found.'
 
 
 @login_required(redirect_field_name=None)
@@ -37,27 +44,27 @@ def manage(request):
 
 @login_required
 def create(request):
-
     if request.method == "POST":
         url = request.POST['url']
         if url:
             feed = Feed(url=request.POST['url'],
                         title=request.POST['title'],
                         website_url=request.POST['website_url'])
-            try:
-                d = feedparser.parse(url)
-                if not feed.title:
-                    feed.title = d['feed']['title']
-                if not feed.website_url:
-                    feed.website_url = d['feed']['link']
-                feed.save()
-                update_feed_by_id(feed.id)
-                print(f"Saved {feed.id}")
-            except Exception as ex:
-                messages.error(request, 'Error processing request.')
+
+            d = feedparser.parse(url)
+            if d.status != 200:
+                messages.error(request, ERROR_INVALID_FEED_URL)
                 return redirect('/feeds/create')
 
-            messages.success(request, f'Subscribed to {feed.title}')
+            if not feed.title:
+                feed.title = d['feed']['title']
+            if not feed.website_url:
+                feed.website_url = d['feed']['link']
+
+            feed.save()
+            update_feed_by_id(feed.id)
+
+            messages.success(request, f'Subscribed to {feed}')
             return redirect('/')
         else:
             messages.error(request, 'Something wrong.')
@@ -68,21 +75,35 @@ def create(request):
 @login_required
 def edit(request, pk):
 
+    try:
+        feed = Feed.objects.get(pk=pk)
+    except Feed.DoesNotExist:
+        messages.error(request, ERROR_NOT_FOUND)
+        return redirect('/feeds/')
+
     if request.method == "POST":
         form = FeedForm(request.POST)
         if form.is_valid():
-            feed = get_object_or_404(Feed, pk=pk)
-            feed.url = request.POST['url']
+
+            url = request.POST['url']
+
+            result = feedparser.parse(url)
+            if result.status != 200:
+                messages.error(request, ERROR_INVALID_FEED_URL)
+                return redirect(request.path)
+
+            feed.url = url
             feed.title = request.POST['title']
             feed.website_url = request.POST['website_url']
             feed.order = int(request.POST['order'])
+
             feed.save()
+            update_feed_by_id(feed.id)
+
             messages.success(request, f'Updated {feed}')
             return redirect('/feeds/manage')
 
-    feed = get_object_or_404(Feed, pk=pk)
-    form = FeedForm(instance=feed)
-    return render(request, 'feeds/edit.html', context={'feed': feed, 'form': form})
+    return render(request, 'feeds/edit.html', context={'feed': feed})
 
 
 @login_required

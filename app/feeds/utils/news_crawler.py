@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 import feedparser
 
 import logging
-
 logger = logging.getLogger(__name__)
 
 # 1. Load os first
@@ -48,21 +47,19 @@ def build_date_str(update_parsed):
 
 def update_feed_by_id(_id):
     feed = Feed.objects.get(pk=_id)
-    existing_articles = Article.objects.filter(feed=feed)
-    # Keep old articles 
-    # TODO - What if the artcle get updated with same URL ??
-    existing_urls = [a.url for a in existing_articles]
+
+    Article.objects.filter(feed=feed).delete()
+    num_items_deleted = Article.objects.filter(feed=feed).delete()
+    # logger.info(f"Deleted {num_items_deleted[0]} articles for feed {feed}")
+
     entries = feedparser.parse(feed.url).entries
-    count = 0
     for e in entries:
-        if e["link"] not in existing_urls:
-            article = Article(url=e["link"],
-                              title=e["title"],
-                              feed=feed,
-                              date_published=build_date_str(e['updated_parsed']))
-            article.save()
-            count += 1
-    logger.info(f"Found {len(entries)} ({count} new) entries for {feed.title}")
+        article = Article(url=e["link"],
+                          title=e["title"],
+                          feed=feed,
+                          date_published=build_date_str(e['updated_parsed']))
+        article.save()
+    logger.info(f"Found {len(entries)} entries for {feed.title}")
 
 
 def update_all_feeds():

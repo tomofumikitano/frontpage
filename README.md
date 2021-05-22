@@ -1,5 +1,7 @@
 Self-hosted RSS news aggregator for your browser home page
 
+[![CodeQL](https://github.com/tomofumikitano/frontpage/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/tomofumikitano/frontpage/actions/workflows/codeql-analysis.yml)
+
 # Features
 - PC/Mobile view
 - Dark Theme

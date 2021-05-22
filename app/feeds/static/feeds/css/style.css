@@ -7648,7 +7648,11 @@ div.container {
   div.column {
     padding: 0 2rem 0; } }
 .table {
-  background-color: var(--bg-color); }
+  background-color: var(--bg-color);
+  color: var(--font-color); }
+
+.table thead th {
+  color: var(--font-color); }
 
 .title {
   padding-top: 2rem;

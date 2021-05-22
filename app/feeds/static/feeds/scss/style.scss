@@ -79,6 +79,12 @@ div.container {
 
 .table {
 	background-color: var(--bg-color);
+	color: var(--font-color);
+
+}
+
+.table thead th {
+	color: var(--font-color);
 }
 
 .title {

@@ -30,7 +30,6 @@ def run_scheduler(force_update_on_strtup=False):
         max_instances=1,
         replace_existing=True,
     )
-    logger.info("Added job 'update_all_feeds'.")
 
     try:
         logger.info("Starting scheduler...")

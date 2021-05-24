@@ -18,7 +18,7 @@ class Feed(models.Model):
         User, default=1, null=False, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.title
+        return f"{self.title} {self.order}"
 
 
 class Article(models.Model):

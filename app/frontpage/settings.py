@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 
 from pathlib import Path
-from socket import gethostname, gethostbyname
+from socket import gethostbyname
 
 import logging
 logger = logging.getLogger(__name__)
@@ -42,7 +42,7 @@ ALLOWED_CIDR_NETS = ['192.168.2.0/24']
 # Application definition
 
 INSTALLED_APPS = [
-    'feeds.apps.FeedsConfig',
+    'feeds',
     'django_apscheduler',
     'django.contrib.admin',
     'django.contrib.auth',

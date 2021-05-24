@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  app:
+  web:
     build:
       context: .
       dockerfile: Dockerfile
     image: frontpage:v1
-    container_name: frontpage_app
+    container_name: frontpage_web
     volumes:
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
@@ -16,3 +16,18 @@ services:
       - PORT=8000
       - SECRET_KEY=${SECRET_KEY}
       - DATABASE_URL=${DATABASE_URL}
+    entrypoint: ["entrypoint.crawler.sh"]
+
+  crawler:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: frontpage:v1
+    container_name: frontpage_crawler
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+    entrypoint: ["entrypoint.crawler.sh"]

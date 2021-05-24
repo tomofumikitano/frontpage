@@ -11,8 +11,12 @@ RUN apt-get update -y && \
 
 FROM frontpage-base
 COPY ./app /app
-COPY ./entrypoint.sh /
-RUN chmod +x /entrypoint.sh
-ENV PYTHONPATH='/app'
 
-ENTRYPOINT ["/entrypoint.sh"]
+COPY ./entrypoint.web.sh /
+RUN chmod +x /entrypoint.web.sh
+
+COPY ./entrypoint.crawler.sh /
+RUN chmod +x /entrypoint.crawler.sh
+
+ENV PYTHONPATH='/app'
+# ENTRYPOINT ["/entrypoint.web.sh"]

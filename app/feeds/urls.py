@@ -13,4 +13,5 @@ urlpatterns = [
     path('create/', views.create, name='create'),
     path('edit/<uuid:pk>', views.edit, name='edit'),
     path('delete/<uuid:pk>', views.delete, name='delete'),
+    path('sort', views.sort, name='sort'),
 ]

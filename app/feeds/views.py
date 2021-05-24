@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseBadRequest
 
 from .models import Feed, Article
 from .forms import FeedForm
@@ -162,7 +163,17 @@ def handle_login(request):
     return render(request, 'feeds/login.html', {"form": form})
 
 
+@login_required
 def handle_logout(request):
     logout(request)
     messages.info(request, 'Logout successfull')
     return redirect('/')
+
+
+@login_required
+def sort(request):
+    if request.method == "POST":
+        return HttpResponse("Sorting!")
+    else:
+        return HttpResponse("Bad Request!")
+

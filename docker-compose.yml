@@ -16,7 +16,7 @@ services:
       - PORT=8000
       - SECRET_KEY=${SECRET_KEY}
       - DATABASE_URL=${DATABASE_URL}
-    entrypoint: ["entrypoint.crawler.sh"]
+    entrypoint: ["entrypoint.web.sh"]
 
   crawler:
     # build:

@@ -12,6 +12,7 @@ steps:
       - cd /opt/App/
       - rm -rf frontpage
       - git clone http://pi:4000/tkitano/frontpage.git
+      - git checkout ${DRONE_COMMIT_BRANCH}
       - cd frontpage
       - git checkout ${DRONE_COMMIT_BRANCH}
       - docker-compose down 2> /dev/null || true

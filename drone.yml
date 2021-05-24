@@ -9,10 +9,11 @@ platform:
 steps:
   - name: build_and_run
     commands:
-      - cd /opt/App/
-      - rm -rf frontpage
-      - git clone http://pi:4000/tkitano/frontpage.git
-      - cd frontpage
-      - docker-compose down 2> /dev/null || true
+      - echo "The current branch is ${DRONE_BRANCH}"
+      # - cd /opt/App/
+      # - rm -rf frontpage
+      # - git clone http://pi:4000/tkitano/frontpage.git
+      # - cd frontpage
+      # - docker-compose down 2> /dev/null || true
       # - docker system prune -f
-      - docker-compose up -d --build
+      # - docker-compose up -d --build

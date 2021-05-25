@@ -8,9 +8,9 @@
 	<div class="container">
 
 		{% if model %}
-		<div class="columns is-multiline">
+		<div class="columns is-multiline" id="feedorder">
 			{% for feed, articles in model.items %}
-			<div class="column is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd">
+				<div id="{{ feed.id }}" class="column is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd feed">
 
 				<div class="title is-5">
 					<a href="{{ feed.website_url }}">{{ feed.title }}</a>
@@ -49,4 +49,41 @@
 
 	</div>
 </section>
+{% endblock %}
+
+{% block script %}
+	{% csrf_token %}
+	<script src="https://unpkg.com/sortablejs-make/Sortable.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	{# {% load static %} #}
+	<script>
+
+		var el = document.getElementById('feedorder');
+		var sortable = Sortable.create(el, {
+			onEnd: (evt) => {
+				const feeds = document.getElementsByClassName('feed');
+				var data = {};
+				for (let i = 0, len = feeds.length; i < len; i++) {
+							data[feeds[i].id] = i;
+				}
+
+				const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+				config = {
+					headers : {
+						'X-CSRFTOKEN': csrftoken
+					}
+				}
+
+				console.log('Sorted. Making POST request');
+				// console.log(data);
+				try {
+					const res = axios.post('/feeds/sort', data, config);
+				} catch (e) {
+					console.error(e);
+				}
+			}
+		});
+
+	</script>
 {% endblock %}

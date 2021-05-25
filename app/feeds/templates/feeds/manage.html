@@ -42,6 +42,7 @@
 {% endblock %}
 
 {% block script %}
+	{% csrf_token %}
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	{% load static %}
 	<script src="{% static 'feeds/js/sort-list.js' %}"></script>

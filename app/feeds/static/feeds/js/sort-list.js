@@ -66,11 +66,26 @@ function slist(target) {
         }
       }
 
-			var result = {};
+			var data = {};
       for (let i = 0, len = items.length; i < len; i++) {
-				result[items[i]['id']] = i;
+				data[items[i]['id']] = i;
       }
-			console.log(result);
+			console.log('Sorted');
+
+			const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+			config = {
+				headers : {
+					'X-CSRFTOKEN': csrftoken
+				}
+			}
+
+			console.log("Making POST request");
+			try {
+				const res = axios.post('/feeds/sort', data, config);
+			} catch (e) {
+				console.error(e);
+			}
     });
   }
 }

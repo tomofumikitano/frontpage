@@ -34,5 +34,10 @@ runscheduler:
 update_feeds:
 	python3 app/manage.py update_feeds
 
-# killall:
-# 	pgrep -lf manage.py && echo killing && pkill -lf manage.py && sleep 1; pgrep -lf manage.py
+shell:
+	python3 app/manage.py shell 
+
+killall:
+	pgrep -lf manage.py && echo killing && pkill -lf manage.py && sleep 1; pgrep -lf manage.py
+
+

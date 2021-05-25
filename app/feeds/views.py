@@ -1,3 +1,4 @@
+import json
 from django.http import HttpResponseNotFound
 import feedparser
 from django.contrib import messages
@@ -173,7 +174,13 @@ def handle_logout(request):
 @login_required
 def sort(request):
     if request.method == "POST":
-        return HttpResponse("Sorting!")
+        order = json.loads(request.body)
+        feeds = Feed.objects.filter(user_id=request.user.id).order_by('order')
+        for feed in feeds:
+            if feed.order != order[str(feed.id)]:
+                logger.debug(f"{feed.title} {feed.order} -> {order[str(feed.id)]}")
+                feed.order = order[str(feed.id)]
+                feed.save()
+        return HttpResponse("Sorted!")
     else:
         return HttpResponse("Bad Request!")
-

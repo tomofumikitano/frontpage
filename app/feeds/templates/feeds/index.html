@@ -10,7 +10,7 @@
 		{% if model %}
 		<div class="columns is-multiline" id="feedorder">
 			{% for feed, articles in model.items %}
-				<div id="{{ feed.id }}" class="column is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd feed">
+			<div id="{{ feed.id }}" class="column is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd feed">
 
 				<div class="title is-5">
 					<a href="{{ feed.website_url }}">{{ feed.title }}</a>
@@ -21,20 +21,20 @@
 				</div>
 
 				<div class="table-container">
-				<table class="table">
-					<tbody>
-						{% for article in articles.all %}
-						<tr class="article">
-							<td class="date-published">
-								{{ article.date_published | date:"M d" }}
-							</td>
-							<td class="article-title">
-								<a href="{{ article.url }}">{{ article.title }}</a>
-							</td>
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+					<table class="table">
+						<tbody>
+							{% for article in articles.all %}
+							<tr class="article">
+								<td class="date-published">
+									{{ article.date_published | date:"M d" }}
+								</td>
+								<td class="article-title">
+									<a href="{{ article.url }}">{{ article.title }}</a>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
 				</div>
 
 			</div>
@@ -52,38 +52,9 @@
 {% endblock %}
 
 {% block script %}
-	{% csrf_token %}
-	<script src="https://unpkg.com/sortablejs-make/Sortable.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	{# {% load static %} #}
-	<script>
-
-		var el = document.getElementById('feedorder');
-		var sortable = Sortable.create(el, {
-			onEnd: (evt) => {
-				const feeds = document.getElementsByClassName('feed');
-				var data = {};
-				for (let i = 0, len = feeds.length; i < len; i++) {
-							data[feeds[i].id] = i;
-				}
-
-				const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-
-				config = {
-					headers : {
-						'X-CSRFTOKEN': csrftoken
-					}
-				}
-
-				console.log('Sorted. Making POST request');
-				// console.log(data);
-				try {
-					const res = axios.post('/feeds/sort', data, config);
-				} catch (e) {
-					console.error(e);
-				}
-			}
-		});
-
-	</script>
+{% csrf_token %}
+<script src="https://unpkg.com/sortablejs-make/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{% load static %}
+<script src="{% static 'feeds/js/sort.js' %}"></script>
 {% endblock %}

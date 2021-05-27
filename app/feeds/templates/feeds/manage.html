@@ -3,7 +3,7 @@
 {% block title %}Manage Feeds{% endblock %}
 
 {% block css %}
-		{% load static %}
+{% load static %}
 {% endblock %}
 
 {% block content %}
@@ -11,30 +11,28 @@
 
 	<div class="container">
 
-		<div class="columns">
-			<div class="column"> </div>
-			<div class="column is-half">
-				{% if feeds %}
+		{% if feeds %}
 
-					<ul id="feedorder">
-						{% for feed in feeds %}
-							<li id="{{feed.id}}">
-								<i class="fas fa-sort handle"></i>&nbsp;
-								<a href="/feeds/edit/{{ feed.id }}">{{ feed.title }}</a>
-							</li>
-						{% endfor %}
-					</ul>
-
-				{% else %}
-
-				<div class="container has-text-centered">
-					Subscribe feeds from&nbsp;<a href="/feeds/create"><strong>here</strong></a>
-				</div>
-				{% endif %}
-
+		<div class="feedorder column is-three-fifth is-offset-two-fifth has-text-centered is-size-5" id="feedorder">
+			{% for feed in feeds %}
+			<div id="{{feed.id}}" class="feed">
+				<a href="/feeds/edit/{{ feed.id }}">{{ feed.title }}</a>
 			</div>
-			<div class="column"> </div>
+			{% endfor %}
 		</div>
+
+		<br></br>
+		<div class="has-text-centered">
+			Click the title to edit. Drag the title to sort.
+		</div>
+
+		{% else %}
+
+		<div class="container has-text-centered">
+			Subscribe feeds from&nbsp;<a href="/feeds/create"><strong>here</strong></a>
+		</div>
+
+		{% endif %}
 
 	</div>
 
@@ -42,17 +40,9 @@
 {% endblock %}
 
 {% block script %}
-	{% csrf_token %}
-	<script src="https://unpkg.com/sortablejs-make/Sortable.min.js"></script>
-
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	{% load static %}
-	<script>
-
-		var el = document.getElementById('feedorder');
-		var sortable = Sortable.create(el, {
-					handle: '.handle',
-				});
-
-	</script>
+{% csrf_token %}
+<script src="https://unpkg.com/sortablejs-make/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{% load static %}
+<script src="{% static 'feeds/js/sort.js' %}"></script>
 {% endblock %}

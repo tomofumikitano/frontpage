@@ -4,8 +4,8 @@ setup:
       as: DATABASE
 build:
   docker:
-    web: Dockerfile
-    crawler: Dockerfile
-run:
-  web: /entrypoint.web.sh
-  crawler: /entrypoint.crawler.sh
+    web: Dockerfile.web
+    crawler: Dockerfile.crawler
+# run:
+#   web: /entrypoint.web.sh
+#   crawler: /entrypoint.crawler.sh

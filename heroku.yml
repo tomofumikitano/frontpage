@@ -7,9 +7,5 @@ build:
     web: Dockerfile
     crawler: Dockerfile
 run:
-  web: 
-    command:
-      - sh /entrypoint.web.sh
-  crawler:
-    command:
-      - sh /entrypoint.crawler.sh
+  web: /entrypoint.web.sh
+  crawler: /entrypoint.crawler.sh

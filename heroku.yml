@@ -5,3 +5,11 @@ setup:
 build:
   docker:
     web: Dockerfile
+    crawler: Dockerfile
+run:
+  web: 
+    command:
+      - sh /entrypoint.web.sh
+  crawler:
+    command:
+      - sh /entrypoint.crawler.sh

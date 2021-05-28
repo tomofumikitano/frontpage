@@ -7730,4 +7730,19 @@ input:checked {
   .slider.round:before {
     border-radius: 50%; }
 
+.sortable-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* (B) DRAG-AND-DROP HINT */ }
+  .sortable-list li {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #333;
+    background: #eaeaea; }
+  .sortable-list li.hint {
+    background: #fea; }
+  .sortable-list li.active {
+    background: #ffd4d4; }
+
 /*# sourceMappingURL=style.css.map */

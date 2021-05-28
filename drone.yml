@@ -15,5 +15,4 @@ steps:
       - cd frontpage
       - git checkout ${DRONE_COMMIT_BRANCH}
       - docker-compose down 2> /dev/null || true
-      # - docker system prune -f
       - docker-compose up -d --build

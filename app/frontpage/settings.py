@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 
+from .database_url_helper import load_database_url
 import os
 
 from pathlib import Path
-from socket import gethostname, gethostbyname
+from socket import gethostbyname
 
 import logging
 logger = logging.getLogger(__name__)
@@ -42,7 +43,7 @@ ALLOWED_CIDR_NETS = ['192.168.2.0/24']
 # Application definition
 
 INSTALLED_APPS = [
-    'feeds.apps.FeedsConfig',
+    'feeds',
     'django_apscheduler',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -88,7 +89,6 @@ WSGI_APPLICATION = 'frontpage.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-from .database_url_helper import load_database_url
 load_database_url()
 
 DATABASES = {
@@ -153,3 +153,19 @@ APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 
 LOGIN_URL = '/feeds/login'
+
+CSRF_USE_SESSIONS = True
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}

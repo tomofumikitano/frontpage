@@ -2,42 +2,47 @@
 
 {% block title %}Manage Feeds{% endblock %}
 
+{% block css %}
+{% load static %}
+{% endblock %}
+
 {% block content %}
 <section class="section">
 
 	<div class="container">
 
-		<div class="columns">
-			<div class="column"> </div>
-			<div class="column is-half">
-				{% if feeds %}
-				<table class="table is-fullwidth"> 
-					<thead>
-						<tr>
-							<th class="feed_title">Title</th>
-							<th class="order">Order</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for feed in feeds %}
-						<tr>
-							<td class="feed_title"><a href="/feeds/edit/{{ feed.id }}">{{ feed.title }}</a></td>
-							<td class="feed_url">{{ feed.order }}</td>
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-				{% else %}
-				<div class="container has-text-centered">
-					Subscribe feeds from&nbsp;<a href="/feeds/create"><strong>here</strong></a>
-				</div>
-				{% endif %}
+		{% if feeds %}
 
+		<div class="feedorder column is-three-fifth is-offset-two-fifth has-text-centered is-size-5" id="feedorder">
+			{% for feed in feeds %}
+			<div id="{{feed.id}}" class="feed">
+				<a href="/feeds/edit/{{ feed.id }}">{{ feed.title }}</a>
 			</div>
-			<div class="column"> </div>
+			{% endfor %}
 		</div>
+
+		<br></br>
+		<p class="help is-info has-text-centered is-size-6">
+			Click the title to edit. Drag the title to sort.
+		</p>
+
+		{% else %}
+
+		<div class="container has-text-centered">
+			Subscribe feeds from&nbsp;<a href="/feeds/create"><strong>here</strong></a>
+		</div>
+
+		{% endif %}
 
 	</div>
 
 </section>
+{% endblock %}
+
+{% block script %}
+{% csrf_token %}
+<script src="https://unpkg.com/sortablejs-make/Sortable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{% load static %}
+<script src="{% static 'feeds/js/sort.js' %}"></script>
 {% endblock %}

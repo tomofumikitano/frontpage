@@ -80,7 +80,6 @@ div.container {
 .table {
 	background-color: var(--bg-color);
 	color: var(--font-color);
-
 }
 
 .table thead th {
@@ -182,5 +181,27 @@ input:checked {
 
 	&:before {
 		border-radius: 50%;
+	}
+}
+
+.sortable-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	li {
+		margin: 5px;
+		padding: 10px;
+		border: 1px solid #333;
+		background: #eaeaea;
+	}
+
+	/* (B) DRAG-AND-DROP HINT */
+	li.hint {
+		background: #fea;
+	}
+
+	li.active {
+		background: #ffd4d4;
 	}
 }

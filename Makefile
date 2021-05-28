@@ -6,7 +6,10 @@ target=app/feeds/static/feeds/css/style.css
 
 run_dev:
 	@export DEBUG=True
-	python3 app/manage.py runserver 0:8000 & sass --sourcemap=inline --watch $(source):$(target)
+	python3 app/manage.py runserver 0:8000 
+
+sass:
+	sass --sourcemap=inline --watch $(source):$(target)
 
 run_prod:
 	python3 app/manage.py runserver --noreload 0:8000
@@ -34,5 +37,10 @@ runscheduler:
 update_feeds:
 	python3 app/manage.py update_feeds
 
+shell:
+	python3 app/manage.py shell 
+
 killall:
 	pgrep -lf manage.py && echo killing && pkill -lf manage.py && sleep 1; pgrep -lf manage.py
+
+

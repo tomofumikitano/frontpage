@@ -6,6 +6,6 @@ build:
   docker:
     web: Dockerfile.web
     crawler: Dockerfile.crawler
-# run:
-#   web: /entrypoint.web.sh
-#   crawler: /entrypoint.crawler.sh
+run:
+  web: /entrypoint.web.sh
+  crawler: /entrypoint.crawler.sh

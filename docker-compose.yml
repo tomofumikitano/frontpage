@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.web
     image: frontpage:v1
     container_name: frontpage_web
     volumes:
@@ -19,9 +19,9 @@ services:
     entrypoint: ["/entrypoint.web.sh"]
 
   crawler:
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile.crawler
     image: frontpage:v1
     container_name: frontpage_crawler
     volumes:

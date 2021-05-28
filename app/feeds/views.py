@@ -1,12 +1,11 @@
 import json
-from django.http import HttpResponseNotFound
 import feedparser
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import HttpResponse
 
 from .models import Feed, Article
 from .forms import FeedForm
@@ -20,6 +19,7 @@ ARTICLES_PER_FEED = 15
 ERROR_INVALID_FEED_URL = 'Error processing request. Invalid RSS/ATOM feed URL?'
 ERROR_NOT_FOUND = 'Not Found.'
 
+VALID_STATUS_CODE = [200, 301]
 
 @login_required(redirect_field_name=None)
 def index(request):
@@ -54,7 +54,9 @@ def create(request):
                         website_url=request.POST['website_url'])
 
             d = feedparser.parse(url)
-            if d.status != 200:
+            if d.status not in VALID_STATUS_CODE:
+                print(d)
+                # print(d.status)
                 messages.error(request, ERROR_INVALID_FEED_URL)
                 return redirect('/feeds/create')
 
@@ -63,10 +65,11 @@ def create(request):
             if not feed.website_url:
                 feed.website_url = d['feed']['link']
 
+            feed.order = max(map(lambda feed: feed.order, Feed.objects.filter(user=request.user.id))) + 1
             feed.save()
             update_feed_by_id(feed.id)
 
-            messages.success(request, f'Subscribed to {feed}')
+            messages.success(request, f'Subscribed to {feed.title}')
             return redirect('/')
         else:
             messages.error(request, 'Something wrong.')
@@ -90,19 +93,18 @@ def edit(request, pk):
             url = request.POST['url']
 
             result = feedparser.parse(url)
-            if result.status != 200:
+            if result.status not in VALID_STATUS_CODE:
                 messages.error(request, ERROR_INVALID_FEED_URL)
                 return redirect(request.path)
 
             feed.url = url
             feed.title = request.POST['title']
             feed.website_url = request.POST['website_url']
-            feed.order = int(request.POST['order'])
 
             feed.save()
             update_feed_by_id(feed.id)
 
-            messages.success(request, f'Updated {feed}')
+            messages.success(request, f'Updated {feed.title}')
             return redirect('/feeds/manage')
 
     return render(request, 'feeds/edit.html', context={'feed': feed})

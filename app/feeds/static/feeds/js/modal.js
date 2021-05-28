@@ -2,13 +2,14 @@
 var modal = document.getElementById("modal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("delete");
+var deleteBtn = document.getElementById("deleteBtn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("modal-close")[0];
 
 // When the user clicks on the button, open the modal
-btn.onclick = function() {
+deleteBtn.onclick = function(e) {
+	e.preventDefault();
   modal.style.display = "block";
 }
 

@@ -7644,6 +7644,9 @@ div.container {
   width: 100%;
   background-color: var(--bg-color); }
 
+label.label {
+  color: var(--font-color); }
+
 @media screen and (max-width: 767px) {
   div.column {
     padding: 0 2rem 0; } }

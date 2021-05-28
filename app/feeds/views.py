@@ -55,8 +55,6 @@ def create(request):
 
             d = feedparser.parse(url)
             if d.status not in VALID_STATUS_CODE:
-                print(d)
-                # print(d.status)
                 messages.error(request, ERROR_INVALID_FEED_URL)
                 return redirect('/feeds/create')
 
@@ -65,7 +63,8 @@ def create(request):
             if not feed.website_url:
                 feed.website_url = d['feed']['link']
 
-            feed.order = max(map(lambda feed: feed.order, Feed.objects.filter(user=request.user.id))) + 1
+            feeds = Feed.objects.filter(user_id=request.user.id)
+            feed.order = 0 if len(feeds) == 0 else max(map(lambda feed: feed.order, feeds)) + 1
             feed.save()
             update_feed_by_id(feed.id)
 

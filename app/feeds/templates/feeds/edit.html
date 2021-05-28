@@ -17,8 +17,8 @@
 		<form role="form" method="POST" class="">
 			{% csrf_token %}
 
-			Feed URL
 			<div class="field">
+				<label class="label">Feed URL</label>
 				<p class="control has-icons-left">
 				<input name="url" class="input" type="text" placeholder="feed url" value="{{ feed.url }}">
 				<span class="icon is-small is-left">
@@ -27,16 +27,16 @@
 				</p>
 			</div>
 
-			Website Title (Optional)
 			<div class="field">
+				<label class="label">Website Title (Optional)</label>
 				<p class="control has-icons-left">
 				<input name="title" class="input" type="text" placeholder="website title" value="{{ feed.title }}">
 				<span class="icon is-small is-left"> <i class="fas fa-heading"></i> </span>
 				</p>
 			</div>
-
-			Website URL (Optional)
+			
 			<div class="field">
+				<label class="label">Website URL (Optional)</label>
 				<p class="control has-icons-left">
 				<input name="website_url" class="input" type="text" placeholder="website url" value="{{ feed.website_url }}">
 				<span class="icon is-small is-left"> <i class="fas fa-newspaper"></i> </span>

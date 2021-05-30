@@ -44,6 +44,13 @@ def manage(request):
     return render(request, 'feeds/manage.html', context={'feeds': feeds})
 
 
+def _find_feed(url):
+    d = feedparser.parse(url)
+    for l in d.feed.links:
+        if l.type in {'application/rss+xml', 'application/atom+xml'} and l.rel == 'alternate':
+            return l.href
+
+
 @login_required
 def create(request):
     if request.method == "POST":
@@ -53,10 +60,17 @@ def create(request):
                         title=request.POST['title'],
                         website_url=request.POST['website_url'])
 
+            logger.debug(f"Trying to parse {url} as RSS url..")
             d = feedparser.parse(url)
-            if d.status not in VALID_STATUS_CODE:
-                messages.error(request, ERROR_INVALID_FEED_URL)
-                return redirect('/feeds/create')
+            if d.bozo == 1:
+                # Find RSS/ATOM in url
+                logger.debug(f"Trying to parse {url} as regular url..")
+                feed_url = _find_feed(url)
+                if feed_url:
+                    d = feedparser.parser(feed_url)
+                else:
+                    messages.error(request, ERROR_INVALID_FEED_URL)
+                    return redirect('/feeds/create')
 
             if not feed.title:
                 feed.title = d['feed']['title']

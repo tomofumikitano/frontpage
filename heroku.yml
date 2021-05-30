@@ -5,8 +5,6 @@ setup:
 build:
   docker:
     common: Dockerfile
-    # web: Dockerfile.web
-    # crawler: Dockerfile.crawler
 run:
   web: 
     image: common

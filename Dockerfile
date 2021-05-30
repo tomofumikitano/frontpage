@@ -19,4 +19,3 @@ COPY ./entrypoint.crawler.sh /
 RUN chmod +x /entrypoint.crawler.sh
 
 ENV PYTHONPATH='/app'
-# ENTRYPOINT ["/entrypoint.web.sh"]

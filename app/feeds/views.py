@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 ARTICLES_PER_FEED = 15
 
 ERROR_INVALID_FEED_URL = 'Error processing request. Invalid RSS/ATOM feed URL?'
+ERROR_FEED_URL_EXISTS = 'Error processing request. You already have the feed.'
 ERROR_NOT_FOUND = 'Not Found.'
 
 VALID_STATUS_CODE = [200, 301]
@@ -56,27 +57,27 @@ def create(request):
     if request.method == "POST":
         url = request.POST['url']
         if url:
-            feed = Feed(user_id=request.user.id, 
-                        url=request.POST['url'],
-                        title=request.POST['title'],
-                        website_url=request.POST['website_url'])
-
             logger.debug(f"Trying to parse {url} as RSS url..")
-            d = feedparser.parse(url)
-            if len(d.entries) == 0:
+            parsed = feedparser.parse(url)
+            if len(parsed.entries) == 0:
                 # Find RSS/ATOM in URL 
                 logger.debug(f"Trying to parse {url} as regular url..")
-                feed_url = _find_feed(url)
-                if feed_url:
-                    d = feedparser.parse(feed_url)
+                url = _find_feed(url)
+                if url:
+                    logger.debug(f"Found feed URL: {url}")
+                    parsed = feedparser.parse(url)
                 else:
                     messages.error(request, ERROR_INVALID_FEED_URL)
                     return redirect('/feeds/create')
 
-            if not feed.title:
-                feed.title = d['feed']['title']
-            if not feed.website_url:
-                feed.website_url = d['feed']['link']
+            existing_feeds = Feed.objects.filter(user_id=request.user.id, url=url)
+            if len(existing_feeds) > 0:
+                messages.error(request, ERROR_FEED_URL_EXISTS)
+                return redirect('/feeds/create')
+
+            feed = Feed(user_id=request.user.id, url=url)
+            feed.title = request.POST['title'] or parsed['feed']['title']
+            feed.website_url = request.POST['website_url'] or parsed['feed']['link']
 
             feeds = Feed.objects.filter(user_id=request.user.id)
             feed.order = 0 if len(feeds) == 0 else max(map(lambda feed: feed.order, feeds)) + 1
@@ -95,7 +96,8 @@ def create(request):
 def edit(request, pk):
 
     try:
-        feed = Feed.objects.get(pk=pk)
+        feed = Feed.objects.get(pk=pk,
+                                user_id=request.user.id)
     except Feed.DoesNotExist:
         messages.error(request, ERROR_NOT_FOUND)
         return redirect('/feeds/')

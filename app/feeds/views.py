@@ -56,7 +56,8 @@ def create(request):
     if request.method == "POST":
         url = request.POST['url']
         if url:
-            feed = Feed(url=request.POST['url'],
+            feed = Feed(user_id=request.user.id, 
+                        url=request.POST['url'],
                         title=request.POST['title'],
                         website_url=request.POST['website_url'])
 

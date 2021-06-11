@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-import string
+import os
 import random
+import string
+
 import pytest
 from selenium import webdriver
 
-BASE_URL = "http://localhost:8000/feeds"
+
+BASE_URL = os.getenv('TEST_SERVER_URL', 'http://localhost:8000/feeds/').rstrip('/')
 
 VALID_FEED_URLS = [
     'https://lobste.rs/t/python.rss',
@@ -90,3 +93,10 @@ def test_create(driver, test_user):
         # TODO - Rename saveBtn to save_button
         driver.find_element_by_id('saveBtn').click()
         assert 'Subscribed to ' in driver.page_source
+
+    # Make sure number of created feeds displayed on top page and manage page 
+    driver.get(BASE_URL)
+    assert len(VALID_FEED_URLS) == len(driver.find_elements_by_class_name('feed'))
+
+    driver.get(BASE_URL + '/manage')
+    assert len(VALID_FEED_URLS) == len(driver.find_elements_by_css_selector('div.feed'))

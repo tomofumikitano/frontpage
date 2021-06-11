@@ -9,3 +9,4 @@ app/feeds/static/admin/
 app/feeds/static/feeds/css/bulma
 .vscode/
 test/out/
+**/*.log

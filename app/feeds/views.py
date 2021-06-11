@@ -62,12 +62,12 @@ def create(request):
 
             logger.debug(f"Trying to parse {url} as RSS url..")
             d = feedparser.parse(url)
-            if d.bozo == 1:
-                # Find RSS/ATOM in url
+            if len(d.entries) == 0:
+                # Find RSS/ATOM in URL 
                 logger.debug(f"Trying to parse {url} as regular url..")
                 feed_url = _find_feed(url)
                 if feed_url:
-                    d = feedparser.parser(feed_url)
+                    d = feedparser.parse(feed_url)
                 else:
                     messages.error(request, ERROR_INVALID_FEED_URL)
                     return redirect('/feeds/create')

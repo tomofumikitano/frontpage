@@ -13,12 +13,13 @@ class Feed(models.Model):
     title = models.CharField(max_length=255)
     website_url = models.CharField(max_length=255)
     date_created = models.DateTimeField('date created', default=timezone.now)
+    date_updated = models.DateTimeField('date updated', default=timezone.now)
     order = models.PositiveIntegerField()
     user = models.ForeignKey(
         User, default=1, null=False, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return f"{self.title} {self.order} {self.id} {self.user}"
+        return f"{self.title} {self.order} {self.id} {self.date_updated} {self.user}"
 
 
 class Article(models.Model):

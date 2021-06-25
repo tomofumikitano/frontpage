@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
+import concurrent.futures
+import datetime
 from pathlib import Path
 import requests
 import sys
 import time
+import timeit
 
+from django.utils import timezone
 from bs4 import BeautifulSoup
 import feedparser
 
@@ -48,22 +52,38 @@ def build_date_str(update_parsed):
 def update_feed_by_id(_id):
     feed = Feed.objects.get(pk=_id)
 
-    Article.objects.filter(feed=feed).delete()
-    num_items_deleted = Article.objects.filter(feed=feed).delete()
-    # logger.info(f"Deleted {num_items_deleted[0]} articles for feed {feed}")
+    try:
+        rss = feedparser.parse(feed.url)
+        entries = rss.entries
+        logger.info(f"Found {len(entries)} entries for {feed.title}")
 
-    entries = feedparser.parse(feed.url).entries
-    for e in entries:
-        article = Article(url=e["link"],
-                          title=e["title"],
-                          feed=feed,
-                          date_published=build_date_str(e['updated_parsed']))
-        article.save()
-    logger.info(f"Found {len(entries)} entries for {feed.title}")
+        if len(entries) > 0:
+            num_items_deleted = Article.objects.filter(feed=feed).delete()
+            logger.info(f"Deleted {num_items_deleted[0]} articles for feed {feed}")
+
+            for e in entries:
+                article = Article(url=e["link"],
+                                  title=e["title"],
+                                  feed=feed,
+                                  date_published=build_date_str(e['updated_parsed']))
+                article.save()
+    except Exception:
+        logger.error(f"Error updating feed {feed}")
 
 
-def update_all_feeds():
+def update_all_feeds(user_id):
+
+    start = timeit.default_timer()
+
     logger.info("Updating all the feeds")
-    feeds = Feed.objects.all()
-    for f in feeds:
-        update_feed_by_id(f.id)
+    feeds = Feed.objects.filter(user=user_id).filter(date_updated__lte=timezone.now() - datetime.timedelta(minutes=10))
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(update_feed_by_id, feed.id): feed for feed in feeds}
+        for future in concurrent.futures.as_completed(futures):
+            feed = futures[future]
+            feed.date_updated = timezone.now() 
+            feed.save()
+
+    end = timeit.default_timer()
+    logger.info(f"Updated all the feeds. Took {end - start:.3}s")

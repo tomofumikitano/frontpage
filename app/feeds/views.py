@@ -9,7 +9,7 @@ from django.http import HttpResponse
 
 from .models import Feed, Article
 from .forms import FeedForm
-from .utils.news_crawler import update_feed_by_id
+from .utils.news_crawler import update_feed_by_id, update_all_feeds
 
 import logging
 logger = logging.getLogger(__name__)
@@ -24,6 +24,7 @@ VALID_STATUS_CODE = [200, 301]
 
 @login_required(redirect_field_name=None)
 def index(request):
+    update_all_feeds(request.user.id)
 
     model = dict()
     feeds = Feed.objects.filter(user_id=request.user.id).order_by('order')
@@ -147,12 +148,10 @@ def register(request):
         if form.is_valid():
             user = form.save()
             messages.success(request, f'Hello {user}!')
-            print(f'User {user} created successfully')
+            logger.info(f'User {user} created successfully')
             login(request, user)
             return redirect('/')
         else:
-            # for msg in form.error_messages:
-            #     print(form.error_messages[msg])
             messages.error(request, 'Failed creating user')
             return render(request, 'feeds/register.html', {"form": form})
     else:

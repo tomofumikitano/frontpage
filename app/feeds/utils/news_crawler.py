@@ -59,7 +59,7 @@ def update_feed_by_id(_id):
 
         if len(entries) > 0:
             num_items_deleted = Article.objects.filter(feed=feed).delete()
-            logger.info(f"Deleted {num_items_deleted[0]} articles for feed {feed}")
+            logger.info(f"Deleted {num_items_deleted[0]} articles for {feed}")
 
             for e in entries:
                 article = Article(url=e["link"],
@@ -70,20 +70,24 @@ def update_feed_by_id(_id):
     except Exception:
         logger.error(f"Error updating feed {feed}")
 
+    feed.date_updated = timezone.now() 
+    feed.save()
+
 
 def update_all_feeds(user_id):
 
     start = timeit.default_timer()
 
-    logger.info("Updating all the feeds")
+    logger.info("Updating all the feeds..")
     feeds = Feed.objects.filter(user=user_id).filter(date_updated__lte=timezone.now() - datetime.timedelta(minutes=10))
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        futures = {executor.submit(update_feed_by_id, feed.id): feed for feed in feeds}
-        for future in concurrent.futures.as_completed(futures):
-            feed = futures[future]
-            feed.date_updated = timezone.now() 
-            feed.save()
+    if len(feeds) > 0:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+            futures = {executor.submit(update_feed_by_id, feed.id): feed for feed in feeds}
+            for future in concurrent.futures.as_completed(futures):
+                pass
 
-    end = timeit.default_timer()
-    logger.info(f"Updated all the feeds. Took {end - start:.3}s")
+        end = timeit.default_timer()
+        logger.info(f"Updated all the feeds. Took {end - start:.3}s")
+    else:
+        logger.info("No feeds to update.")

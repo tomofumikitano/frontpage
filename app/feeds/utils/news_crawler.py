@@ -75,6 +75,7 @@ def update_feed_by_id(_id):
 
 
 # def update_all_feeds(user_id):
+def update_all_feeds():
 
     start = timeit.default_timer()
 

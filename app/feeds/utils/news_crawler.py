@@ -74,14 +74,12 @@ def update_feed_by_id(_id):
     feed.save()
 
 
-# def update_all_feeds(user_id):
-def update_all_feeds():
+def update_all_feeds(user_id):
 
     start = timeit.default_timer()
 
     logger.info("Updating all the feeds..")
-    # feeds = Feed.objects.filter(user=user_id).filter(date_updated__lte=timezone.now() - datetime.timedelta(minutes=10))
-    feeds = Feed.objects.filter(date_updated__lte=timezone.now() - datetime.timedelta(minutes=10))
+    feeds = Feed.objects.filter(user=user_id).filter(date_updated__lte=timezone.now() - datetime.timedelta(minutes=10))
 
     if len(feeds) > 0:
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:

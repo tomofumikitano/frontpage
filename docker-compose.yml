@@ -15,17 +15,3 @@ services:
       - SECRET_KEY=${SECRET_KEY}
       - DATABASE_URL=${DATABASE_URL}
     entrypoint: ["/entrypoint.web.sh"]
-
-  crawler:
-    # build: .
-    #   context: .
-    #   dockerfile: Dockerfile
-    image: frontpage:v1
-    container_name: frontpage_crawler
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
-    environment:
-      - SECRET_KEY=${SECRET_KEY}
-      - DATABASE_URL=${DATABASE_URL}
-    entrypoint: ["/entrypoint.crawler.sh"]

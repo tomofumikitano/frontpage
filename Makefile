@@ -31,9 +31,6 @@ setup_db:
 heroku_test_db:
 	@psql -c "\conninfo" $(shell heroku config:get DATABASE_URL)
 
-runscheduler:
-	python3 app/manage.py runscheduler
-
 update_feeds:
 	python3 app/manage.py update_feeds
 
@@ -42,5 +39,3 @@ shell:
 
 killall:
 	pgrep -lf manage.py && echo killing && pkill -lf manage.py && sleep 1; pgrep -lf manage.py
-
-

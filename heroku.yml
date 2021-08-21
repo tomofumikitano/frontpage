@@ -10,7 +10,3 @@ run:
     image: common
     command:
       - /entrypoint.web.sh
-  crawler: 
-    image: common
-    command:
-      - /entrypoint.crawler.sh

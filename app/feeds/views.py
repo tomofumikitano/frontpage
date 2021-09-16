@@ -14,6 +14,7 @@ from .utils.news_crawler import update_feed_by_id, update_all_feeds
 import logging
 logger = logging.getLogger(__name__)
 
+feedparser.USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0"
 ARTICLES_PER_FEED = 15
 
 ERROR_INVALID_FEED_URL = 'Error processing request. Invalid RSS/ATOM feed URL?'

@@ -3,52 +3,49 @@
 {% block title %}Frontpage{% endblock %}
 
 {% block content %}
-<section class="section">
+<div class="container">
 
-	<div class="container">
+	{% if model %}
+	<div class="columns is-multiline" id="feedorder">
+		{% for feed, articles in model.items %}
+		<div id="{{ feed.id }}" class="column is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd feed">
 
-		{% if model %}
-		<div class="columns is-multiline" id="feedorder">
-			{% for feed, articles in model.items %}
-			<div id="{{ feed.id }}" class="column is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd feed">
-
-				<div class="title is-5">
-					<a href="{{ feed.website_url }}">{{ feed.title }}</a>
-					&nbsp;
-					<a href="/feeds/edit/{{ feed.id }}">
-						<i class="far fa-edit"></i>
-					</a>
-				</div>
-
-				<div class="table-container">
-					<table class="table">
-						<tbody>
-							{% for article in articles.all %}
-							<tr class="article">
-								<td class="date-published">
-									{{ article.date_published | date:"M d" }}
-								</td>
-								<td class="article-title">
-									<a href="{{ article.url }}">{{ article.title }}</a>
-								</td>
-							</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
-
+			<div class="title is-5">
+				<a href="{{ feed.website_url }}">{{ feed.title }}</a>
+				&nbsp;
+				<a href="/feeds/edit/{{ feed.id }}">
+					<i class="far fa-edit"></i>
+				</a>
 			</div>
-			{% endfor %}
-		</div>
-		{% else %}
-		<div class="container has-text-centered">
-			No feeds registered yet. <br>
-			Subscribe feeds from&nbsp;<a href="/feeds/create"><strong>here</strong></a>.
-		</div>
-		{% endif %}
 
+			<div class="table-container">
+				<table class="table">
+					<tbody>
+						{% for article in articles.all %}
+						<tr class="article">
+							<td class="date-published">
+								{{ article.date_published | date:"M d" }}
+							</td>
+							<td class="article-title">
+								<a href="{{ article.url }}">{{ article.title }}</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+		{% endfor %}
 	</div>
-</section>
+	{% else %}
+	<div class="container has-text-centered">
+		No feeds registered yet. <br>
+		Subscribe feeds from&nbsp;<a href="/feeds/create"><strong>here</strong></a>.
+	</div>
+	{% endif %}
+
+</div>
 {% endblock %}
 
 {% block script %}

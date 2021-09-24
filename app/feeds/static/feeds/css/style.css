@@ -7631,9 +7631,6 @@ body {
 strong {
   color: var(--font-color); }
 
-.section {
-  padding: 1.5rem; }
-
 .footer {
   background-color: var(--bg-color); }
 

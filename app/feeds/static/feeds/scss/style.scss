@@ -4,7 +4,7 @@
 	font-size: 14px;
 	--primary-color: #302AE6;
 	--secondary-color: #536390;
-	--font-color: #535353;
+	--font-color: #2b2b2b;
 	--bg-color: #fbfbfb;
 	--slider-bg-color: #ff9915;
 }
@@ -55,7 +55,7 @@ strong {
 }
 
 .section {
-	padding: 1.5rem 0rem 0rem 0rem;
+	padding: 1.5rem;
 }
 
 .footer {
@@ -103,19 +103,20 @@ div.title a i {
 @media screen and (min-width: 768px) {
 	.table-container {
 		overflow-y: auto;
+		scrollbar-width: thin;
 		height: 350px;
 	}
 }
 
 td.date-published {
-	width: 15%;
+	width: 10%;
 	font-size: 80%;
 	vertical-align: middle;
 	color: var(--font-color);
 }
 
 td.article-title {
-	padding: 5px;
+	padding: 0.5em;
 }
 
 .right {

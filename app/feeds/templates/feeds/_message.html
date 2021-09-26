@@ -1,5 +1,6 @@
 {% if error %}
 	<div class="notification is-danger is-light">
+	  <button class="delete"></button>
 	{{ error }}
 	</div>
 {% endif %}
@@ -8,9 +9,15 @@
 		<ul class="messages">
 		{% for message in messages %}
 		{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-			<div class="notification is-danger is-light has-text-centered"> {{ message }} </div>
+			<div class="notification is-danger is-light has-text-centered">
+			<button class="delete"></button>
+			{{ message }}
+			</div>
 		{% else %}
-			<div class="notification is-success is-light has-text-centered"> {{ message }} </div>
+			<div class="notification is-success is-light has-text-centered">
+			<button class="delete"></button>
+			{{ message }}
+			</div>
 		{% endif %}
 		{% endfor %}
 	</ul>

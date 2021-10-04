@@ -54,6 +54,12 @@ strong {
 	color: var(--font-color);
 }
 
+.columns {
+	margin-left: 0;
+	margin-right: 0;
+	max-width: 100%;
+}
+
 .footer {
 	background-color: var(--bg-color);
 }
@@ -105,7 +111,7 @@ div.title a i {
 }
 
 td.date-published {
-	width: 10%;
+	width: 15%;
 	font-size: 80%;
 	vertical-align: middle;
 	color: var(--font-color);

@@ -1,5 +1,8 @@
 import json
 import feedparser
+from urllib.error import URLError
+from xml.sax._exceptions import SAXParseException 
+
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -14,11 +17,16 @@ from .utils.news_crawler import update_feed_by_id, update_all_feeds
 import logging
 logger = logging.getLogger(__name__)
 
+# Suppress debug message by feedpaser.parse()
+# https://stackoverflow.com/questions/48429257/python-requests-module-logging-of-encoding
+logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
+
 feedparser.USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101 Firefox/91.0"
 ARTICLES_PER_FEED = 15
 
 ERROR_INVALID_FEED_URL = 'Error processing request. Invalid RSS/ATOM feed URL?'
 ERROR_FEED_URL_EXISTS = 'Error processing request. You already have the feed.'
+ERROR_URL_NOT_ACCESIBLE = 'Error processing request. URL not accessible.'
 ERROR_NOT_FOUND = 'Not Found.'
 
 VALID_STATUS_CODE = [200, 301]
@@ -38,7 +46,6 @@ def index(request):
 
 @login_required
 def manage(request):
-
     feeds = Feed.objects.filter(user_id=request.user.id).order_by('order')
 
     if len(feeds) == 0:
@@ -59,39 +66,48 @@ def create(request):
     if request.method == "POST":
         url = request.POST['url']
         if url:
-            logger.debug(f"Trying to parse {url} as RSS url..")
-            parsed = feedparser.parse(url)
-            if len(parsed.entries) == 0:
-                # Find RSS/ATOM in URL 
-                logger.debug(f"Trying to parse {url} as regular url..")
+            logger.debug(f"Trying to parse {url} as RSS url ..")
+            d = feedparser.parse(url)
+
+            if d.bozo and type(d.bozo_exception) is URLError:
+                logger.error(f"Error accessing url: {url}")
+                messages.error(request, ERROR_URL_NOT_ACCESIBLE)
+                return redirect('/feeds/create')
+
+            if d.bozo and type(d.bozo_exception) is SAXParseException:
+                # Find RSS/ATOM in URL
+                logger.debug(f"Trying to parse {url} as regular url ..")
                 url = _find_feed(url)
                 if url:
                     logger.debug(f"Found feed URL: {url}")
-                    parsed = feedparser.parse(url)
+                    d = feedparser.parse(url)
                 else:
                     messages.error(request, ERROR_INVALID_FEED_URL)
                     return redirect('/feeds/create')
 
-            existing_feeds = Feed.objects.filter(user_id=request.user.id, url=url)
+            existing_feeds = Feed.objects.filter(
+                user_id=request.user.id, url=url)
             if len(existing_feeds) > 0:
                 messages.error(request, ERROR_FEED_URL_EXISTS)
                 return redirect('/feeds/create')
 
             feed = Feed(user_id=request.user.id, url=url)
-            feed.title = request.POST['title'] or parsed['feed']['title']
-            feed.website_url = request.POST['website_url'] or parsed['feed']['link']
+            feed.title = request.POST['title'] or d['feed']['title']
+            feed.website_url = request.POST['website_url'] or d['feed']['link']
 
             feeds = Feed.objects.filter(user_id=request.user.id)
-            feed.order = 0 if len(feeds) == 0 else max(map(lambda feed: feed.order, feeds)) + 1
+            feed.order = 0 if len(feeds) == 0 else max(
+                map(lambda feed: feed.order, feeds)) + 1
             feed.save()
             update_feed_by_id(feed.id)
 
             messages.success(request, f'Subscribed to {feed.title}')
             return redirect('/')
         else:
-            messages.error(request, 'Something wrong.')
-
-    return render(request, 'feeds/edit.html', context={'feed': None})
+            messages.error(request, 'Hmm, something wrong. URL missing?')
+            return render(request, 'feeds/edit.html', context={'feed': None})
+    else:
+        return render(request, 'feeds/edit.html', context={'feed': None})
 
 
 @login_required
@@ -196,7 +212,8 @@ def sort(request):
         feeds = Feed.objects.filter(user_id=request.user.id).order_by('order')
         for feed in feeds:
             if feed.order != order[str(feed.id)]:
-                logger.debug(f"{feed.title} {feed.order} -> {order[str(feed.id)]}")
+                logger.debug(
+                    f"{feed.title} {feed.order} -> {order[str(feed.id)]}")
                 feed.order = order[str(feed.id)]
                 feed.save()
         return HttpResponse("Sorted!")

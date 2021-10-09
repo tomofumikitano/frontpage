@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import concurrent.futures
 import datetime
+import os
 from pathlib import Path
 import requests
 import sys
@@ -14,19 +15,12 @@ import feedparser
 import logging
 logger = logging.getLogger(__name__)
 
-# 1. Load os first
-import os  # NOQA
-
-app_base_dir = Path(__file__).parent.parent
-sys.path.append(str(app_base_dir))
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'frontpage.settings')
 
-# 2. Load django second
-# import django  # NOQA
-# django.setup()
-
-# 3. Load model
+sys.path.append(str(Path(__file__).parent.parent))
 from feeds.models import Feed, Article  # NOQA
+
+FEED_UPDATE_INTERVAL_MIN = 30
 
 
 def add_feed_by_url(url, title=None):
@@ -70,7 +64,7 @@ def update_feed_by_id(_id):
     except Exception:
         logger.error(f"Error updating feed {feed}")
 
-    feed.date_updated = timezone.now() 
+    feed.date_updated = timezone.now()
     feed.save()
 
 
@@ -79,11 +73,13 @@ def update_all_feeds(user_id):
     start = timeit.default_timer()
 
     logger.info("Updating all the feeds..")
-    feeds = Feed.objects.filter(user=user_id).filter(date_updated__lte=timezone.now() - datetime.timedelta(minutes=10))
+    feeds = Feed.objects.filter(user=user_id).filter(date_updated__lte=timezone.now(
+    ) - datetime.timedelta(minutes=FEED_UPDATE_INTERVAL_MIN))
 
     if len(feeds) > 0:
         with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-            futures = {executor.submit(update_feed_by_id, feed.id): feed for feed in feeds}
+            futures = {executor.submit(
+                update_feed_by_id, feed.id): feed for feed in feeds}
             for future in concurrent.futures.as_completed(futures):
                 pass
 

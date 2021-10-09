@@ -54,13 +54,6 @@ strong {
 	color: var(--font-color);
 }
 
-.columns {
-	margin-top: 0;
-	margin-left: 0;
-	margin-right: 0;
-	max-width: 100%;
-}
-
 .footer {
 	background-color: var(--bg-color);
 }
@@ -69,17 +62,29 @@ a, a:hover {
 	color: var(--font-color);
 }
 
-div.container {
-	width: 100%;
-	background-color: var(--bg-color);
-}
-
 label.label {
 	color: var(--font-color);
 }
 
+.container {
+	width: 100%;
+	background-color: var(--bg-color);
+	padding: 1rem;
+}
+
+.columns {
+	margin-top: 0;
+	margin-left: 0;
+	margin-right: 0;
+	max-width: 100%;
+}
+
 @media screen and (max-width: 767px) {
-	div.column {
+	.container {
+		padding: 0;
+	}
+
+	.column {
 		padding: 0 2rem 0;
 	}
 }

@@ -20,7 +20,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'frontpage.settings')
 sys.path.append(str(Path(__file__).parent.parent))
 from feeds.models import Feed, Article  # NOQA
 
-FEED_UPDATE_INTERVAL_MIN = 30
+FEED_UPDATE_INTERVAL_MIN = 5 
+FEED_UPDATE_MAX_WORKERS = 10
 
 
 def add_feed_by_url(url, title=None):
@@ -47,6 +48,7 @@ def update_feed_by_id(_id):
     feed = Feed.objects.get(pk=_id)
 
     try:
+        start = timeit.default_timer()
         rss = feedparser.parse(feed.url)
         entries = rss.entries
         logger.info(f"Found {len(entries)} entries for {feed.title}")
@@ -61,6 +63,9 @@ def update_feed_by_id(_id):
                                   feed=feed,
                                   date_published=build_date_str(e['updated_parsed']))
                 article.save()
+        end = timeit.default_timer() 
+        logger.info(f"Updated feed: {feed.title}. Took {end - start:.3}s")
+
     except Exception:
         logger.error(f"Error updating feed {feed}")
 
@@ -77,7 +82,7 @@ def update_all_feeds(user_id):
     ) - datetime.timedelta(minutes=FEED_UPDATE_INTERVAL_MIN))
 
     if len(feeds) > 0:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=FEED_UPDATE_MAX_WORKERS) as executor:
             futures = {executor.submit(
                 update_feed_by_id, feed.id): feed for feed in feeds}
             for future in concurrent.futures.as_completed(futures):

@@ -83,13 +83,40 @@ label.label {
 	padding: 1.5rem;
 }
 
-@media screen and (max-width: 767px) {
+/* mobile */ 
+@media screen and (max-width: 768px) {
 	.container {
 		padding: 0;
+		// padding: 0 2rem 0;
 	}
 
 	.column {
 		padding: 0 2rem 0;
+	}
+}
+
+/* tablet, desktop */ 
+@media screen and (min-width: 769px) {
+	.table-container {
+		overflow-y: auto;
+		height: 25rem;
+		scrollbar-width: none;
+	}
+
+	.table-container:hover {
+		scrollbar-width: thin;
+	}
+
+	.table-container::-webkit-scrollbar {
+		display: none;
+	}
+
+	.table-container:hover::-webkit-scrollbar,
+	.table-container:focus::-webkit-scrollbar,
+	{
+		display: block;
+		background-color: #aaa;
+		width: 0.5rem;
 	}
 }
 
@@ -110,14 +137,6 @@ label.label {
 /* Make 'edit' icon little bit smaller */
 div.title a i {
 	font-size: 1rem;
-}
-
-@media screen and (min-width: 768px) {
-	.table-container {
-		overflow-y: auto;
-		scrollbar-width: thin;
-		height: 350px;
-	}
 }
 
 td.date-published {

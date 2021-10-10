@@ -7643,7 +7643,7 @@ label.label {
 .container {
   width: 100%;
   background-color: var(--bg-color);
-  padding: 1rem; }
+  padding: 0rem 1rem 0rem 1rem; }
 
 .columns {
   margin-top: 0;

@@ -7,6 +7,8 @@ import requests
 import sys
 import time
 import timeit
+from threading import Lock
+lock = Lock()
 
 from django.utils import timezone
 from bs4 import BeautifulSoup
@@ -74,7 +76,8 @@ def update_feed_by_id(_id):
 
 
 def update_all_feeds(user_id):
-
+    
+    lock.acquire()
     start = timeit.default_timer()
 
     logger.info("Updating all the feeds..")
@@ -82,6 +85,10 @@ def update_all_feeds(user_id):
     ) - datetime.timedelta(minutes=FEED_UPDATE_INTERVAL_MIN))
 
     if len(feeds) > 0:
+        for feed in feeds:
+            feed.date_updated = timezone.now()
+            feed.save()
+
         with concurrent.futures.ThreadPoolExecutor(max_workers=FEED_UPDATE_MAX_WORKERS) as executor:
             futures = {executor.submit(
                 update_feed_by_id, feed.id): feed for feed in feeds}
@@ -92,3 +99,4 @@ def update_all_feeds(user_id):
         logger.info(f"Updated all the feeds. Took {end - start:.3}s")
     else:
         logger.info("No feeds to update.")
+    lock.release()

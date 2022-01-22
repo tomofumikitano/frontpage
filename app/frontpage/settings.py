@@ -35,7 +35,7 @@ if 'DEBUG' in os.environ.keys() and os.environ.get('DEBUG') == 'True':
     DEBUG = True
 logger.info(f"DEBUG  = {DEBUG}")
 
-ALLOWED_HOSTS = "*"
+ALLOWED_HOSTS = ["*"]
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', gethostname(), gethostbyname(gethostname()), ]
 ALLOWED_CIDR_NETS = ['192.168.2.0/24']
 

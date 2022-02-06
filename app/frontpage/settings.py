@@ -138,7 +138,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'feeds/static')
 
 LOGIN_URL = '/feeds/login'
 
-CSRF_USE_SESSIONS = True
+CSRF_TRUSTED_ORIGINS = ['https://*.herokuapp.com', 'http://*.herokuapp.com', 'http://pi:8000/', 'http://*.home:8000/']
 
 LOGGING = {
     'version': 1,

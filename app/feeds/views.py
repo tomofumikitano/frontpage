@@ -38,8 +38,14 @@ def index(request):
     model = dict()
     feeds = Feed.objects.filter(user_id=request.user.id).order_by('order')
     for feed in feeds:
-        model[feed] = Article.objects.filter(
-            feed=feed).order_by('date_published').reverse()[:ARTICLES_PER_FEED]
+        if feed.filter:
+            articles = Article.objects.filter(
+                feed=feed).exclude(title__contains=feed.filter).order_by('date_published').reverse()[:ARTICLES_PER_FEED]
+        else:
+            articles = Article.objects.filter(
+                feed=feed).order_by('date_published').reverse()[:ARTICLES_PER_FEED]
+
+        model[feed] = articles
 
     return render(request, 'feeds/index.html', context={'model': model})
 
@@ -94,6 +100,7 @@ def create(request):
             feed = Feed(user_id=request.user.id, url=url)
             feed.title = request.POST['title'] or d['feed']['title']
             feed.website_url = request.POST['website_url'] or d['feed']['link']
+            feed.filter = request.POST['filter']
 
             feeds = Feed.objects.filter(user_id=request.user.id)
             feed.order = 0 if len(feeds) == 0 else max(
@@ -134,6 +141,7 @@ def edit(request, pk):
             feed.url = url
             feed.title = request.POST['title']
             feed.website_url = request.POST['website_url']
+            feed.filter = request.POST['filter']
 
             feed.save()
             update_feed_by_id(feed.id)

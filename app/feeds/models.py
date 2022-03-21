@@ -15,11 +15,12 @@ class Feed(models.Model):
     date_created = models.DateTimeField('date created', default=timezone.now)
     date_updated = models.DateTimeField('date updated', default=timezone.now)
     order = models.PositiveIntegerField()
+    filter = models.CharField(max_length=255, blank=True, null=True)
     user = models.ForeignKey(
         User, default=1, null=False, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return f"{self.title} {self.order} {self.user}"
+        return f"{self.title} {self.order} {self.user} {self.filter}"
 
 
 class Article(models.Model):

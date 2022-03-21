@@ -9,7 +9,7 @@ run_dev:
 	python3 app/manage.py runserver 0:8000 
 
 sass:
-	sass --sourcemap=inline --watch $(source):$(target)
+	sass --source-map --watch $(source):$(target)
 
 run_prod:
 	python3 app/manage.py runserver --noreload 0:8000

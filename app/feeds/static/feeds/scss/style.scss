@@ -100,16 +100,16 @@ label.label {
 	.table-container {
 		overflow-y: auto;
 		height: 25rem;
-		scrollbar-width: none;
+		scrollbar-width: thin;
 	}
 
 	.table-container:hover {
 		scrollbar-width: thin;
 	}
 
-	.table-container::-webkit-scrollbar {
-		display: none;
-	}
+	// .table-container::-webkit-scrollbar {
+	// 	display: none;
+	// }
 
 	.table-container:hover::-webkit-scrollbar,
 	.table-container:focus::-webkit-scrollbar,
@@ -240,4 +240,16 @@ input:checked {
 	li.active {
 		background: #ffd4d4;
 	}
+}
+
+.fadeout {
+	animation-delay: 3s;
+	animation-duration: 3s;
+	animation-fill-mode: forwards;
+	animation-name: fadeout
+}
+
+@keyframes fadeout {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }

@@ -38,12 +38,11 @@ def index(request):
     model = dict()
     feeds = Feed.objects.filter(user_id=request.user.id).order_by('order')
     for feed in feeds:
+        articles = Article.objects.filter(feed=feed)
         if feed.filter:
-            articles = Article.objects.filter(
-                feed=feed).exclude(title__contains=feed.filter).order_by('date_published').reverse()[:ARTICLES_PER_FEED]
-        else:
-            articles = Article.objects.filter(
-                feed=feed).order_by('date_published').reverse()[:ARTICLES_PER_FEED]
+            for keyword in feed.filter.split(','):
+                articles = articles.exclude(title__contains=keyword.strip())
+        articles = articles.order_by('date_published').reverse()[:ARTICLES_PER_FEED]
 
         model[feed] = articles
 

@@ -5,7 +5,6 @@ Self-hosted RSS news aggregator for your browser home page
 # Features
 - PC/Mobile view
 - Dark Theme
-- Automatically update feeds every 15 mins
 - Sortable Feeds
 
 # Screenshots

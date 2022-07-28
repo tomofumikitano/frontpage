@@ -25,7 +25,7 @@ Mobile Dark             |  Mobile Light
 # Demo
 https://frontpageshowcase.herokuapp.com/feeds/
 
-May take 20-30 secs before Heroku wakes sleeping container up.
+No email required. May take 20-30 secs before Heroku wakes sleeping container up.
 
 
 # Setup
